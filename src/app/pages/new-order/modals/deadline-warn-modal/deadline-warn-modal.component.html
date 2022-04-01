@@ -1,0 +1,22 @@
+<div class="modal-header">
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body p-5">
+  <div class="clock-image d-flex justify-content-center align-items-center mb-4">
+    <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-clock'" /></svg>
+  </div>
+  <h2 class="mb-4 title">
+    {{ LANG_ROOT + 'TEXT.MESSAGE_1' | translate }} {{ cart.visitDate | kaDate: 'day mm/dd' }} {{ LANG_ROOT + 'TEXT.MESSAGE_2' | translate }}
+    {{ timeRemaining }} {{ LANG_ROOT + 'TEXT.MESSAGE_3' | translate }}
+  </h2>
+  <div class="mt-4 warn">
+    {{ LANG_ROOT + 'WARNING' | translate }}
+  </div>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+  <button (click)="closeModal()" type="button" class="w-50 btn-square-black" id="deadline-ordering-warn-modal">
+    {{ LANG_ROOT + 'BUTTON' | translate }}
+  </button>
+</div>

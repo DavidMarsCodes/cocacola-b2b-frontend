@@ -1,0 +1,45 @@
+<div class="ka-sidebar">
+  <div class="image">
+    <img class="rounded-circle img-fluid w-100" src="./assets/media/comercio.png" alt="" />
+  </div>
+  <div class="user-info">
+    <h2 class="title-h2">{{ user.firstName }} {{ user.lastName }}</h2>
+    <p class="role">{{ 'HOME.CLIENT.ROL.' + selectedClient.rol | translate: { Default: selectedClient.rol } }}</p>
+  </div>
+
+  <!--<p class="status"><fa-icon [icon]="['far', 'check-circle']"></fa-icon> {{ 'HOME.STATUS.OK' | translate }}</p>-->
+
+  <div class="user-data">
+    <p>
+      {{ 'HOME.CLIENT.LABEL' | translate }}<br />
+      {{ selectedClient.erpClientId }}
+    </p>
+    <p>
+      {{ 'HOME.CLIENT.ID' | translate }}<br />
+      {{ selectedClient.fiscalId }}
+    </p>
+    <p>
+      {{ 'HOME.CLIENT.PHONE' | translate }}<br />
+      {{ user.cellphone }}
+    </p>
+    <p>
+      {{ 'HOME.CLIENT.EMAIL' | translate }} <br />
+      {{ user.email }}
+    </p>
+  </div>
+
+  <div class="user-actions">
+    <!-- <button class="call-to-action px-0 my-2" id="manage-other-users">
+      <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-users" /></svg>
+      {{ 'HOME.MY_ACCOUNT.MANAGE' | translate }}
+    </button> -->
+    <button routerLink="/main/mi-perfil/password/editar" class="call-to-action px-0 my-2" id="change-password">
+      <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-lock" /></svg>
+      {{ 'HOME.MY_ACCOUNT.CHANGE_PASSWORD' | translate }}
+    </button>
+    <!-- <button class="call-to-action px-0 my-2" id="edit-contact-details">
+      <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-edit" /></svg>
+      {{ 'HOME.MY_ACCOUNT.EDIT' | translate }}
+    </button> -->
+  </div>
+</div>

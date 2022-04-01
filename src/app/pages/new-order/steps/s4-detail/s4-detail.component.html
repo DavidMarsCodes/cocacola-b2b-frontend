@@ -1,0 +1,76 @@
+<div class="w-100" id="detalle-del-pedido">
+  <div class="d-lg-none my-3 w-100">
+    <app-exp-timer-warn class="mb-3 bg-white"></app-exp-timer-warn>
+  </div>
+
+  <div *ngIf="user.countryId !== 'AR'" class="d-lg-none mb-3">
+    <app-ka-how-to-pay-widget class="w-100" (click)="changeStep(5)"></app-ka-how-to-pay-widget>
+  </div>
+
+  <div class="mb-3 d-lg-none">
+    <app-ka-my-order-widget class="w-100" (click)="changeStep(3)"></app-ka-my-order-widget>
+  </div>
+
+  <section *ngIf="user.countryId !== 'CL'" class="my-order-table d-none d-lg-block mb-5">
+    <app-ka-my-order-table></app-ka-my-order-table>
+    <div *ngIf="cart.discountProducts.length" class="w-100 pb-3">
+      <button (click)="cleanCart()" class="btn-transparent border-0 d-block mt-0 p-2 mx-auto w-auto" id="vaciar-mi-pedido">Vaciar mi pedido</button>
+    </div>
+  </section>
+
+  <mat-accordion *ngIf="user.countryId === 'CL'">
+    <div *ngIf="products.length > 0" class="my-order-table d-none d-lg-block mb-5">
+      <mat-expansion-panel class="mat-elevation-z0" expanded="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>{{ ROOT_NEW + 'NOT_FROZEN' | translate }}</strong>
+          </mat-panel-title>
+          <mat-panel-description>
+            <span class="ka-time-delivery"
+              ><strong>{{ ROOT_NEW + 'TIME_DELIVERY_CAPT' | translate }} {{ visitDate | kaDate: 'day mm/dd' }}</strong></span
+            >
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-ka-my-order-table [visitType]="'delivery'"></app-ka-my-order-table>
+        <div *ngIf="cart.products.length" class="w-100">
+          <button (click)="cleanCart()" class="btn-transparent border-0 d-block mt-0 p-2 mx-auto w-auto" id="vaciar-mi-pedido">
+            {{ ROOT + 'EMPTY_MY_ORDER' | translate }}
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </div>
+    <div *ngIf="productsFrozen.length > 0" class="my-order-table d-none d-lg-block mb-5">
+      <mat-expansion-panel class="mat-elevation-z0" expanded="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <strong>{{ ROOT_NEW + 'FROZEN' | translate }}</strong>
+          </mat-panel-title>
+          <mat-panel-description>
+            <span class="ka-time-delivery"
+              ><strong>{{ ROOT_NEW + 'TIME_DELIVERY_CAPT' | translate }} {{ frozenVisitDate | kaDate: 'day mm/dd' }}</strong></span
+            >
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <app-ka-my-order-table [visitType]="'deliveryfrozen'"></app-ka-my-order-table>
+        <div *ngIf="cart.products.length" class="w-100">
+          <button (click)="cleanCart()" class="btn-transparent border-0 d-block mt-0 p-2 mx-auto w-auto" id="vaciar-mi-pedido">
+            {{ ROOT + 'EMPTY_MY_ORDER' | translate }}
+          </button>
+        </div>
+      </mat-expansion-panel>
+    </div>
+  </mat-accordion>
+
+  <section class="my-3">
+    <p class="title d-none d-lg-block">{{ ROOT + 'RESUME' | translate }}</p>
+    <app-ka-order-detail class="w-100"></app-ka-order-detail>
+  </section>
+
+  <div class="d-none d-lg-flex row suggested-cart bg-white w-100">
+    <div *ngFor="let item of suggestedProducts ? suggestedProducts.slice(0, 2) : []" class="col-12 col-md-12 col-lg-6 p-0">
+      <app-ka-suggested-on-cart [product]="item"></app-ka-suggested-on-cart>
+    </div>
+  </div>
+</div>

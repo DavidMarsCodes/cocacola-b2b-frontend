@@ -1,0 +1,13 @@
+<div class="ka-sidebar scroll-grey">
+  <app-ka-minimun-purchase class="w-100 mb-3"></app-ka-minimun-purchase>
+  <app-ka-available-credits *ngIf="hasCredits" class="mb-3"></app-ka-available-credits>
+  <app-ka-my-order-table [small]="true" class="w-100 mb-3"></app-ka-my-order-table>
+  <app-ka-order-detail [small]="true" class="w-100 mb-3"></app-ka-order-detail>
+  <app-exp-timer-warn [small]="true" class="w-100 mb-3 bg-grey border-radius"></app-exp-timer-warn>
+  <div class="w-100">
+    <button class="btn-square-black mw-100 w-100" [disabled]="!cart.minPurchaseReached" (click)="changeStep(4)" id="show-detail-order">
+      {{ ROOT + 'BUTTON.SHOW_ORDER_DETAIL' | translate }}
+    </button>
+    <p *ngIf="!cart.products.length" class="empty-cart-advice">{{ ROOT + 'END_ADVICE' | translate }}</p>
+  </div>
+</div>

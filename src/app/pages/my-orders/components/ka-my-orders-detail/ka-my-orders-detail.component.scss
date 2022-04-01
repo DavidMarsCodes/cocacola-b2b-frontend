@@ -1,0 +1,54 @@
+@import 'variables';
+
+:host {
+  width: 100%;
+}
+
+.order-detail {
+  height: calc(100vh - 63px);
+  background-color: $light-grey;
+  overflow-x: hidden;
+  @media (max-width: $lg) {
+    height: calc(100vh - 47px);
+  }
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+    padding-bottom: 25px;
+  }
+  .invoice {
+    width: 25%;
+    @media (max-width: $lg) {
+      width: 40%;
+    }
+  }
+  .resume {
+    @media (max-width: $lg) {
+      margin-bottom: 125px;
+    }
+  }
+  .repeat-order {
+    @media (max-width: $lg) {
+      background-color: $white;
+      border-radius: 6px;
+      box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+      position: fixed;
+      text-align: center;
+      bottom: 65px;
+      width: 100%;
+      padding: 10px;
+    }
+  }
+}
+
+.no-order-detail {
+  height: 300px;
+  margin: 1rem;
+  border-radius: 12px;
+  .back {
+    margin: 10px;
+  }
+  h2 {
+    text-align: center;
+    margin-top: 88px;
+  }
+}

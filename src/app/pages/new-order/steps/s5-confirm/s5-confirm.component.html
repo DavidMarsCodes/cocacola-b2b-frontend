@@ -1,0 +1,10 @@
+<div class="order-result">
+  <img class="my-4" src="/assets/media/emojis/confirm-order.png" alt="" />
+  <p class="my-4 title">{{ ROOT_LANG + 'TITLE' | translate: { id: cart.orderId } }}</p>
+  <p class="legal-warn text-center my-4">{{ ROOT_LANG + 'LEGAL_WARN' | translate }}</p>
+  <div class="my-4 text-center" *ngIf="!user.uuid">
+    <button class="btn-square-black" routerLink="/main/mis-pedidos" id="ver-pedidos-en-curso-np">{{ ROOT_LANG + 'BUTTON' | translate }}</button>
+    <a routerLink="/main/home" id="ir-al-inicio-np">{{ ROOT_LANG + 'GO_HOME' | translate }}</a>
+  </div>
+  <app-ka-delivery-details [step]="5" class="d-lg-none w-100 ka-card"></app-ka-delivery-details>
+</div>

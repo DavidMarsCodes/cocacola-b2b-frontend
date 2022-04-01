@@ -1,0 +1,16 @@
+@import 'variables';
+
+.card {
+  padding: 20px;
+  background: $white;
+  border: 1px solid #f6f6f6;
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: $shadow;
+  .title {
+    font-size: 17px;
+    line-height: 19px;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+}

@@ -1,0 +1,67 @@
+<div class="modal-header">
+  <div class="row w-100 pb-4">
+    <div class="col-4 col-sm-3">
+      <img [src]="discount.image" class="img-fluid" alt="" />
+    </div>
+    <div class="col-8 col-sm-9 d-flex align-items-center">
+      <p>{{ discount.name }}</p>
+    </div>
+  </div>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <hr />
+</div>
+<div class="modal-body scroll-grey">
+  <div class="products-container">
+    <div *ngFor="let product of currentScale.products">
+      <div class="product my-4 d-flex justify-content-between align-items-center">
+        <div class="product-name w-50">
+          <p>{{ product.name }}</p>
+        </div>
+        <div class="product-prices">
+          <small *ngIf="product.price.listPrice !== product.price.finalPrice" class="mx-2">{{ product.price.listPrice | kaCurrency }}</small>
+          <span class="mx-2">{{ product.price.finalPrice | kaCurrency }}</span>
+        </div>
+        <div class="product-pill">
+          <div class="btn-pill quantity d-flex my-3 mx-2">
+            <span (click)="removeProduct(product)" class="button">
+              <fa-icon icon="minus"></fa-icon>
+            </span>
+            <span class="mx-2 font-weight-bold text-center">{{ product.quantity }}</span>
+            <span (click)="addProduct(product)" class="button">
+              <fa-icon icon="plus"></fa-icon>
+            </span>
+          </div>
+          <!-- <fa-icon icon="minus" (click)="removeProduct(product)"></fa-icon>
+          <span class="mx-3 font-weight-bold text-center">{{ product.quantity }}</span>
+          <fa-icon icon="plus" (click)="addProduct(product)"></fa-icon> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+  <div class="total-prices d-flex justify-content-between w-100">
+    <div>
+      <p class="total-text">TOTAL</p>
+    </div>
+    <div>
+      <small class="mr-4" *ngIf="totalListPrice !== totalFinalPrice">{{ totalListPrice | kaCurrency }}</small>
+      <span>{{ totalFinalPrice | kaCurrency }}</span>
+    </div>
+  </div>
+  <div class="discount-label-cont d-flex align-items-center w-100 my-2">
+    <div class="discount-label">
+      <p>
+        {{
+          'NEW_ORDER.DISCOUNTS.SCALE.' + currentScaleLabel
+            | translate: { scale: !!currentScale.reward.value ? currentScale : isCurrentScaleLast ? prevScale : nextScale }
+        }}
+      </p>
+    </div>
+  </div>
+  <button type="button" class="w-50 btn-square-black mt-4" id="add-products-modal" [disabled]="!discount.quantitySelected" (click)="addProductsToCart()">
+    {{ 'NEW_ORDER.DISCOUNTS.SCALE.ADD_BUTTON' | translate }}
+  </button>
+</div>

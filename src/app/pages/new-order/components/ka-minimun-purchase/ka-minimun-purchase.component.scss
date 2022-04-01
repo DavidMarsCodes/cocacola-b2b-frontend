@@ -1,0 +1,81 @@
+@import 'variables';
+
+.ka-grey-card {
+  border: 1px solid $grey;
+  .item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &:not(:last-child) {
+      margin-bottom: 30px;
+    }
+    p {
+      margin-bottom: 0;
+    }
+    .image {
+      margin-right: 10px;
+    }
+    .tabler-bucket {
+      color: white;
+      width: 3rem;
+      height: 3rem;
+    }
+    .content {
+      width: 85%;
+    }
+    .text {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      line-height: 13px;
+      span {
+        font-size: 1.2rem;
+        font-weight: bold;
+      }
+    }
+    .warning {
+      font-size: 1rem;
+      line-height: 10px;
+    }
+  }
+}
+
+.mobile {
+  width: 100%;
+  background-color: $white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    p {
+      margin-bottom: 0;
+    }
+    .content {
+      width: 100%;
+    }
+    .text {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      line-height: 13px;
+      @supports (max-width: $lg) {
+        display: none;
+      }
+      span {
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+    .warning {
+      font-size: 10px;
+      line-height: 10px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+<app-ka-navbar class="w-100" *ngIf="!user.uuid"></app-ka-navbar>
+
+<div class="home scroll-grey" [ngClass]="{ 'pt-4': user.uuid }">
+  <p class="title mb-2">{{ 'HOME.CLIENT_SELECTED' | translate }}</p>
+
+  <div class="mb-3 w-100">
+    <app-ka-select-commerce [minimalist]="true"></app-ka-select-commerce>
+  </div>
+
+  <div *ngIf="pendingOrders.length" class="mb-4">
+    <app-ka-my-orders-banner [pendingOrders]="pendingOrders"></app-ka-my-orders-banner>
+  </div>
+
+  <div class="history">
+    <app-ka-my-history *ngIf="ordersSrvComplete" [orders]="orders" [hasNewOrders]="hasNewOrders"></app-ka-my-history>
+  </div>
+</div>

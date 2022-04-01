@@ -1,0 +1,65 @@
+@import 'variables';
+
+.select-commerce {
+  select {
+    border: none;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-family: $font-regular;
+    margin-left: -2px;
+    background-color: transparent;
+    border-bottom: 1px solid $dark;
+    @media (max-width: $lg) {
+      max-width: 100%;
+      width: 100%;
+      color: $dark;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .label {
+    font-size: 1.6rem;
+    line-height: 17px;
+    color: $dark;
+    align-self: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .select-group {
+    width: 100%;
+    ::ng-deep {
+      .mat-form-field {
+        width: 100%;
+      }
+      .mat-select-panel .mat-optgroup-label,
+      .mat-select-panel .mat-option {
+        font-size: 1.6rem;
+        line-height: 13px;
+      }
+      .mat-select-value-text,
+      .mat-option-text {
+        font-size: 1.6rem;
+        line-height: 13px;
+      }
+      .mat-form-field-appearance-standard .mat-form-field-flex {
+        padding-top: 0;
+      }
+      .mat-form-field-infix {
+        padding: 0;
+      }
+    }
+    span {
+      font-family: $font-regular;
+      font-weight: 325;
+      font-size: 1.6rem;
+      line-height: 1.3rem;
+      color: $dark-grey-bold;
+      @media (max-width: $lg) {
+        font-size: 16px;
+      }
+    }
+  }
+}

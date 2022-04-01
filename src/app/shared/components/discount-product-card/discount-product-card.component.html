@@ -1,0 +1,152 @@
+<!-- GRID VIEW -->
+<div *ngIf="style === 'GRID'" class="card-square d-flex flex-column container">
+  <div class="row image">
+    <div class="d-none d-lg-block info mb-5" placement="top" ngbTooltip="Tooltip on top"></div>
+    <img class="image-discount" [src]="discount.image" alt="" (error)="onImgError()" />
+  </div>
+
+  <div class="discount-data {{ discount.discountType }}">
+    <div class="discount-label" *ngIf="discount.discountType === DiscountTypes.OPEN || discount.discountType === DiscountTypes.PACK_SCALE">
+      {{ 'NEW_ORDER.DISCOUNTS.OPEN.LABEL' | translate }}
+    </div>
+    <div class="discount-label" *ngIf="discount.discountType === DiscountTypes.UNIT_SCALE">
+      {{
+        'NEW_ORDER.DISCOUNTS.SCALE.' + currentScaleLabel
+          | translate: { scale: !!currentScale.reward ? currentScale : isCurrentScaleLast ? prevScale : nextScale }
+      }}
+    </div>
+    <div *ngIf="discount.discountType === DiscountTypes.CLOSED">
+      <p class="discount-label">
+        {{
+          'NEW_ORDER.DISCOUNTS.CLOSED.DISCOUNT_LABEL' | translate: { discount: (1 - getTotalFinalPriceCC() / getTotalListPriceCC()) * 100 | number: '1.0-1' }
+        }}
+      </p>
+      <p class="discount-limit">
+        {{ 'NEW_ORDER.DISCOUNTS.CLOSED.LIMIT' | translate: { limit: discount.maxRepetitionAllowed } }}
+      </p>
+    </div>
+    <div class="discount-name mt-3 mb-2">{{ discount.name }}</div>
+    <div class="discount-price p-0 pl-2 text-left">
+      <ng-container *ngIf="discount.discountType === DiscountTypes.CLOSED">
+        <small>{{ getTotalListPriceCC() | kaCurrency }}</small>
+        <span>{{ getTotalFinalPriceCC() | kaCurrency }}</span>
+      </ng-container>
+      <ng-container *ngIf="discount.discountType === DiscountTypes.UNIT_SCALE">
+        <small *ngIf="currentScale?.price?.listPrice * discount.quantitySelected !== getScaleDiscountPrice()">
+          {{ currentScale?.price?.listPrice * discount.quantitySelected | kaCurrency }}
+        </small>
+        <span>{{ getScaleDiscountPrice() | kaCurrency }}</span>
+      </ng-container>
+    </div>
+  </div>
+  <div class="row discount-quantity mt-auto d-flex align-items-center justify-content-center">
+    <ng-container *ngIf="discount.discountType !== DiscountTypes.OPEN && discount.discountType !== DiscountTypes.PACK_SCALE">
+      <div class="btn-pill quantity d-flex">
+        <span (click)="removeProduct()" class="button">
+          <fa-icon icon="minus"></fa-icon>
+        </span>
+        <input
+          type="number"
+          [(ngModel)]="discount.quantitySelected"
+          (input)="updateScale()"
+          (keydown)="validQuantLength($event)"
+          (paste)="onQuantityPaste($event)"
+        />
+        <span (click)="addProduct()" class="button">
+          <fa-icon icon="plus"></fa-icon>
+        </span>
+      </div>
+      <button [disabled]="!this.isQuantitySelectedValid()" class="btn-pill-add w-auto" (click)="addProductToCart(discount)">
+        {{ 'NEW_ORDER.ORDER_DETAIL.ADD' | translate }}
+      </button>
+    </ng-container>
+    <ng-container *ngIf="discount.discountType === DiscountTypes.OPEN || discount.discountType === DiscountTypes.PACK_SCALE">
+      <button class="btn-pill-add ml-3 w-auto mb-2" (click)="addProductToCart(discount)" [id]="discount.discountType">
+        {{ 'NEW_ORDER.DISCOUNTS.OPEN.BUTTON' | translate }}
+      </button>
+    </ng-container>
+  </div>
+</div>
+
+<!-- ROW VIEW -->
+<div *ngIf="style === 'ROW'" class="card-row container bg-white p-1">
+  <div class="row justify-content-center align-items-center">
+    <div class="row col-4 p-1">
+      <div class="col-9">
+        <div class="row image">
+          <img class="img-fluid" [src]="discount.image" alt="" (error)="onImgError()" />
+        </div>
+      </div>
+    </div>
+    <div class="row col-8 p-1">
+      <div class="col-12 col-md-5 p-1 pl-3">
+        <div class="discount-data bg-white">
+          <span class="discount-label" *ngIf="discount.discountType === DiscountTypes.OPEN || discount.discountType === DiscountTypes.PACK_SCALE">
+            {{ 'NEW_ORDER.DISCOUNTS.OPEN.LABEL' | translate }}
+          </span>
+          <span class="discount-label" *ngIf="discount.discountType === DiscountTypes.UNIT_SCALE">
+            {{
+              'NEW_ORDER.DISCOUNTS.SCALE.' + currentScaleLabel
+                | translate: { scale: !!currentScale.reward.value ? currentScale : isCurrentScaleLast ? prevScale : nextScale }
+            }}
+          </span>
+          <div *ngIf="discount.discountType === DiscountTypes.CLOSED">
+            <p class="discount-label">
+              {{
+                'NEW_ORDER.DISCOUNTS.CLOSED.DISCOUNT_LABEL'
+                  | translate: { discount: (1 - getTotalFinalPriceCC() / getTotalListPriceCC()) * 100 | number: '1.0-1' }
+              }}
+            </p>
+            <p class="discount-limit">
+              {{ 'NEW_ORDER.DISCOUNTS.CLOSED.LIMIT' | translate: { limit: discount.maxRepetitionAllowed } }}
+            </p>
+          </div>
+          <span class="discount-name mt-2">{{ discount.name }}</span>
+        </div>
+      </div>
+      <div class="col-12 col-md-3 d-flex p-1 discount-price-cont">
+        <div class="row discount-data bg-white">
+          <div class="discount-price p-0 pl-2 text-center">
+            <ng-container *ngIf="discount.discountType === DiscountTypes.CLOSED">
+              <small>{{ getTotalListPriceCC() | kaCurrency }}</small>
+              <span>{{ discount.price.finalPrice | kaCurrency }}</span>
+            </ng-container>
+            <ng-container *ngIf="discount.discountType === DiscountTypes.UNIT_SCALE">
+              <small *ngIf="currentScale?.price?.listPrice * discount.quantitySelected !== getScaleDiscountPrice()">
+                {{ currentScale?.price?.listPrice * discount.quantitySelected | kaCurrency }}
+              </small>
+              <span>{{ getScaleDiscountPrice() | kaCurrency }}</span>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-4 d-flex justify-content-center p-1">
+        <div class="row discount-quantity d-flex align-items-center justify-content-center">
+          <ng-container *ngIf="discount.discountType !== DiscountTypes.OPEN && discount.discountType !== DiscountTypes.PACK_SCALE">
+            <div class="btn-pill quantity d-flex">
+              <span (click)="removeProduct()" class="button">
+                <fa-icon icon="minus"></fa-icon>
+              </span>
+              <input
+                type="number"
+                [(ngModel)]="discount.quantitySelected"
+                (input)="updateScale()"
+                (keydown)="validQuantLength($event)"
+                (paste)="onQuantityPaste($event)"
+              />
+              <span (click)="addProduct()" class="button">
+                <fa-icon icon="plus"></fa-icon>
+              </span>
+            </div>
+            <button [disabled]="!this.isQuantitySelectedValid()" class="btn-pill-add btn-pill-add-enabled w-auto" (click)="addProductToCart(discount)">
+              {{ 'NEW_ORDER.ORDER_DETAIL.ADD' | translate }}
+            </button>
+          </ng-container>
+          <ng-container *ngIf="discount.discountType === DiscountTypes.OPEN || discount.discountType === DiscountTypes.PACK_SCALE">
+            <button class="btn-pill-add w-auto" (click)="addProductToCart(discount)">{{ 'NEW_ORDER.DISCOUNTS.OPEN.BUTTON' | translate }}</button>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

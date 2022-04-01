@@ -1,0 +1,44 @@
+@import 'variables';
+
+.banner {
+  padding: 2rem 2rem;
+  background-color: $dark;
+  border-radius: 10px;
+  border-left: 1.5rem solid $red;
+  color: $white;
+  cursor: pointer;
+  @media (max-width: $lg) {
+    padding: 2rem;
+    margin-left: 0 !important;
+  }
+}
+p {
+  margin-bottom: 0;
+}
+.title {
+  font-size: 2rem;
+  line-height: 2.2rem;
+  font-family: $font-bold;
+}
+.subtitle {
+  font-size: 2.6rem;
+  line-height: 2.9rem;
+  font-family: $font-bold;
+}
+.status {
+  text-align: left;
+  padding-left: 0;
+}
+.date {
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+}
+.details {
+  font-size: 1.4rem;
+  line-height: 1.9rem;
+  svg {
+    color: $red;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

@@ -1,0 +1,10 @@
+<ul class="options">
+  <ng-template class="options" ngFor let-option [ngForOf]="sidebarOptions">
+    <li *ngIf="option.show" class="li-sidebar" [ngClass]="{ active: option.active, disabled: option.disabled }" (click)="optionSelected(option)">
+      <svg class="img-fluid mr-2 icon-ka-sidebar" stroke-width="3.25">
+        <use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-' + option.icon" />
+      </svg>
+      <span>{{ 'HOME.' + option.langKey | translate }}</span>
+    </li>
+  </ng-template>
+</ul>

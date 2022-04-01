@@ -1,0 +1,24 @@
+<section class="mb-3 w-100">
+  <h3 class="title-h3 mt-3 mb-2">Detalle de pedido</h3>
+  <div class="ka-card bg-white">
+    <app-ka-my-order-table></app-ka-my-order-table>
+    <button
+      (click)="cleanCart()"
+      *ngIf="cart.discountProducts.length"
+      class="btn-transparent border-0 mb-2 d-block w-100 pt-0 bg-white"
+      id="mobile-clear-order"
+    >
+      Vaciar mi pedido
+    </button>
+  </div>
+</section>
+<div *ngIf="products?.length" class="w-100 mb-3 suggested-on-cart">
+  <p class="title-main">{{ 'NEW_ORDER.SUGGESTED_PRODUCTS.TITLE' | translate }}</p>
+  <owl-carousel-o [options]="carouselOptions" class="w-100 mb-5">
+    <ng-container *ngFor="let product of products ? products.slice(0, 3) : []; index as i">
+      <ng-template carouselSlide>
+        <app-ka-suggested-on-cart [product]="product"></app-ka-suggested-on-cart>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</div>

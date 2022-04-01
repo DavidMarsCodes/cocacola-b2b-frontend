@@ -1,0 +1,83 @@
+<!-- Desktop -->
+<div class="d-none d-lg-flex card container bg-white">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-3">
+      <div class="row image">
+        <img class="img-fluid" [src]="product.image" alt="" (error)="onImgError()" />
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="row product-data bg-white">
+        <span class="product-name">{{ product.name }} </span>
+      </div>
+      <div class="row product-data bg-white">
+        <div class="product-price w-75 p-0 pl-2">
+          <small *ngIf="product.price.listPrice !== product.price.finalPrice" class="mr-2">{{ product.price.listPrice | kaCurrency }}</small>
+          <span>{{ product.price.finalPrice | kaCurrency }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="row flex-row product-quantity d-flex align-items-center justify-content-center">
+        <div class="btn-pill quantity d-flex">
+          <span (click)="removeProduct()" class="button">
+            <fa-icon icon="minus"></fa-icon>
+          </span>
+          <input type="number" [(ngModel)]="product.quantitySelected" (keydown)="validQuantLength($event)" (paste)="onQuantityPaste($event)" />
+          <!-- <span class="font-weight-bold text-center">{{ product.quantitySelected }}</span> -->
+          <span (click)="addProduct()" class="button">
+            <fa-icon icon="plus"></fa-icon>
+          </span>
+        </div>
+        <button
+          [disabled]="!product.quantitySelected || product.quantitySelected < 1 || !isInteger(product.quantitySelected)"
+          class="btn-pill-add w-auto"
+          (click)="addProductToCart(product)"
+        >
+          {{ 'NEW_ORDER.ORDER_DETAIL.ADD' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile -->
+<div class="d-flex d-lg-none card container">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-5">
+      <div class="row image">
+        <img class="img-fluid" [src]="product.image" alt="" (error)="onImgError()" />
+      </div>
+    </div>
+    <div class="col-7">
+      <div class="row product-data pt-3 px-3">
+        <span class="product-name">{{ product.name }}</span>
+      </div>
+      <div class="row product-data px-3">
+        <div class="product-price w-75 p-0 pl-2 text-center d-flex flex-row align-items-center justify-content-between">
+          <small *ngIf="product.price.listPrice !== product.price.finalPrice">{{ product.price.listPrice | kaCurrency }}</small>
+          <span>{{ product.price.finalPrice | kaCurrency }}</span>
+        </div>
+      </div>
+      <div class="pb-3 row flex-row product-quantity d-flex align-items-center justify-content-center">
+        <div class="btn-pill quantity d-flex">
+          <span (click)="removeProduct()" class="button">
+            <fa-icon icon="minus"></fa-icon>
+          </span>
+          <!-- <span class="font-weight-bold text-center">{{ product.quantitySelected }}</span> -->
+          <input type="number" [(ngModel)]="product.quantitySelected" (keydown)="validQuantLength($event)" (paste)="onQuantityPaste($event)" />
+          <span (click)="addProduct()" class="button">
+            <fa-icon icon="plus"></fa-icon>
+          </span>
+        </div>
+        <button
+          [disabled]="!product.quantitySelected || product.quantitySelected < 1 || !isInteger(product.quantitySelected)"
+          class="btn-pill-add w-auto"
+          (click)="addProductToCart(product)"
+        >
+          {{ 'NEW_ORDER.ORDER_DETAIL.ADD' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

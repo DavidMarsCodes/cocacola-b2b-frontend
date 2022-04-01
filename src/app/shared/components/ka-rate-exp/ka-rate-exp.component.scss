@@ -1,0 +1,43 @@
+@import 'variables';
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  border: 1px solid $grey;
+  cursor: pointer;
+  fa-icon {
+    font-size: 30px;
+    color: $red;
+  }
+  .title {
+    font-family: $font-bold;
+    font-weight: 325;
+    font-size: 1.9rem;
+    line-height: 2.3rem;
+    text-align: center;
+    color: $dark;
+    margin-bottom: 10px;
+    margin-top: 15px;
+  }
+  .subtitle {
+    fa-icon {
+      font-size: 15px;
+      color: $red;
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+  }
+  &.disabled {
+    background-color: #eee;
+    p {
+      color: $dark-grey;
+    }
+    .subtitle {
+      fa-icon {
+        color: $dark-grey;
+      }
+    }
+  }
+}

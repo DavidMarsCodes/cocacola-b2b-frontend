@@ -1,0 +1,12 @@
+@import 'variables';
+
+.modal-title {
+  font-family: $font-bold;
+}
+.modal-body {
+  height: 60vh;
+}
+
+button {
+  max-width: none;
+}

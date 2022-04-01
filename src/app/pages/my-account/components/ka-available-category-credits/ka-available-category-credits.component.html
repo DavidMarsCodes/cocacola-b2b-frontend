@@ -1,0 +1,36 @@
+<div class="card">
+  <p class="title">{{ 'MY_WALLET.AVAILABLE_CREDITS.CREDITS_AVAILABLE_CATEGORY' | translate }}</p>
+  <div class="w-100 d-flex credit-container align-items-center justify-content-between">
+    <div *ngIf="credits && credits.length > 0" class="w-100 flex-wrap d-flex flex-row align-items-center">
+      <div *ngFor="let credit of credits" class="available-credit">
+        <div class="item">
+          <div class="image">
+            <svg *ngIf="credit.Segment.name != 'CERVEZAS'"><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-glass-full'" /></svg>
+            <img *ngIf="credit.Segment.name == 'CERVEZAS'" alt="CERVEZAS" src="../../../../../assets/icons/cerveza.svg" />
+          </div>
+          <div class="content">
+            <div class="text">
+              <span>{{ credit.Segment.name }}</span>
+              <span>&nbsp;</span>
+              <span class="strong">{{ credit.creditLimit | kaCredits }}</span>
+            </div>
+            <p class="my-2">
+              <ngb-progressbar type="success" [max]="credit.creditLimit" [value]="credit.spentCredit"> </ngb-progressbar>
+            </p>
+          </div>
+        </div>
+        <div class="payment-method d-flex flex-column align-items-center">
+          <p>
+            <strong>Utilizado: </strong> <span>{{ credit.spentCredit | kaCredits }}</span>
+          </p>
+          <p>
+            <strong>Disponible: </strong> <span>{{ credit.available | kaCredits }}</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!credits || credits.length === 0" class="col-12">
+      <p class="h3 text-center">{{ 'MY_WALLET.AVAILABLE_CREDITS.NO_CREDITS_AVAILABLE' | translate }}</p>
+    </div>
+  </div>
+</div>

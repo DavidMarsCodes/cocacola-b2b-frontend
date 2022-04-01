@@ -1,0 +1,58 @@
+<div class="modal-header">
+  <div class="row w-100 pb-4">
+    <div class="col-4 col-sm-3">
+      <img [src]="discount.image" class="img-fluid" alt="" />
+    </div>
+    <div class="col-8 col-sm-9 d-flex align-items-center">
+      <p>{{ discount.name }}</p>
+    </div>
+  </div>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  <hr />
+</div>
+<div class="modal-body scroll-grey">
+  <div class="products-container">
+    <div *ngFor="let productGroup of productsGruped | keyvalue">
+      <p class="group-name">{{ productGroup.key }}</p>
+      <div *ngFor="let product of productGroup.value">
+        <div class="product d-flex justify-content-between align-items-center">
+          <div class="product-name w-50">
+            <p>{{ product.name }}</p>
+          </div>
+          <div class="product-prices">
+            <small *ngIf="product.price.listPrice !== product.price.finalPrice">{{ product.price.listPrice | kaCurrency }}</small>
+            <span>{{ product.price.finalPrice | kaCurrency }}</span>
+          </div>
+          <div class="product-pill">
+            <div class="btn-pill quantity d-flex m-0">
+              <span (click)="removeProduct(product)" class="button">
+                <fa-icon icon="minus"></fa-icon>
+              </span>
+              <input
+                type="number"
+                [(ngModel)]="product.quantitySelected"
+                (keydown)="validQuantLength($event, product)"
+                (paste)="onQuantityPaste($event)"
+                [ngClass]="{ error: product.quantitySelected < 0 }"
+                (input)="refreshProductsSelected()"
+              />
+              <span (click)="addProduct(product)" class="button">
+                <fa-icon icon="plus"></fa-icon>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer d-flex flex-column">
+  <div class="max-repetition">
+    <p>{{ 'NEW_ORDER.DISCOUNTS.OPEN.MODAL_MAX_QUANT' | translate: { maxQuantity: discount.maxRepetitionAllowed } }}</p>
+  </div>
+  <button [disabled]="!this.productsSelected.length" type="button" class="w-50 btn-square-black" id="add-products-modal" (click)="addProductsToCart()">
+    {{ 'NEW_ORDER.DISCOUNTS.OPEN.MODAL_BUTTON' | translate }}
+  </button>
+</div>

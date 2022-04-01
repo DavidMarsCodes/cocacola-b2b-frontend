@@ -1,0 +1,112 @@
+<div class="row m-0">
+  <div class="col-12" [ngClass]="{ 'col-lg-12': currentStep.id == 1, 'col-lg-9': currentStep.id != 1 }">
+    <div class="row" *ngIf="!user.uuid">
+      <app-ka-navbar class="w-100"></app-ka-navbar>
+    </div>
+    <div class="row main-content" [ngClass]="{ 'pt-5': user.uuid }">
+      <div class="col-12">
+        <div class="controls mt-3 mb-3 d-none d-lg-block">
+          <div class="row align-items-center justify-content-center">
+            <div class="wrapper-progressBar w-100 d-flex justify-content-center align-items-center">
+              <div
+                class="step-item d-flex align-items-center"
+                *ngFor="let step of steps"
+                [ngClass]="{ clickable: step.id < this.currentStep.id, 'd-lg-none': step.isMobile, 'hide-step': step.shouldStepShow }"
+                (click)="changeStepFromStepper(step.id)"
+              >
+                <div class="svg-container" [ngClass]="{ active: step.active }">
+                  <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-' + step.icon" /></svg>
+                </div>
+                <span [ngClass]="{ active: step.active }">{{ 'NEW_ORDER.STEPS.' + step.langKey | translate }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-container" [ngSwitch]="currentStep.id">
+          <div *ngSwitchCase="1">
+            <app-s1-delivery-date class="content step1"></app-s1-delivery-date>
+          </div>
+          <div *ngSwitchCase="2">
+            <app-s2-products [primaryFilter]="subStep" class="content step2"></app-s2-products>
+          </div>
+          <div *ngSwitchCase="3">
+            <app-s3-my-order-mobile class="content step3"></app-s3-my-order-mobile>
+          </div>
+          <div *ngSwitchCase="4">
+            <app-s4-detail class="content step4"></app-s4-detail>
+          </div>
+          <div *ngSwitchCase="5">
+            <app-s6-mini-credit class="content-confirm content step6"></app-s6-mini-credit>
+          </div>
+          <div *ngSwitchCase="6">
+            <app-s5-confirm class="content-confirm content step5"></app-s5-confirm>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-container [ngSwitch]="currentStep.id">
+    <div *ngSwitchCase="2" class="d-none d-lg-block col-lg-3 col-xl-3 p-0">
+      <app-ka-cart-sidebar [step]="currentStep"></app-ka-cart-sidebar>
+    </div>
+    <div *ngSwitchCase="4" class="d-none d-lg-block col-lg-3 col-xl-3 p-0">
+      <app-s4-detail-sidebar></app-s4-detail-sidebar>
+    </div>
+    <div *ngSwitchCase="5" class="d-none d-lg-block col-lg-3 col-xl-3 p-0">
+      <app-ka-s6-sidebar></app-ka-s6-sidebar>
+    </div>
+    <div *ngSwitchCase="6" class="d-none d-lg-block col-lg-3 col-xl-3 p-0">
+      <div class="ka-sidebar justify-content-center">
+        <app-ka-delivery-details [step]="6"></app-ka-delivery-details>
+        <!--<button class="btn-transparent border-0 mt-5" id="cancelar-pedido-np">Cancelar pedido</button>-->
+      </div>
+    </div>
+  </ng-container>
+
+  <div *ngIf="currentStep.id != 1 && currentStep.id != 6" class="minimun-purchase-mobile p-3">
+    <div *ngIf="currentStep.id != 4 && currentStep.id != 5" class="d-block mb-3">
+      <app-ka-minimun-purchase></app-ka-minimun-purchase>
+    </div>
+
+    <div class="row align-items-center justify-content-center">
+      <button
+        id="mobile-show-order"
+        *ngIf="currentStep.id === 2"
+        class="btn-square-black w-75 px-4 d-flex justify-content-between"
+        (click)="changeStep(currentStep.id + 1)"
+      >
+        {{ ROOT + 'ORDER_DETAIL.BUTTON.SEE_ORDER' | translate }} <span>{{ cart.totalPrice | kaCurrency }}</span>
+      </button>
+    </div>
+
+    <div *ngIf="currentStep.id === 3" class="d-flex align-items-center w-100 justify-content-{{ cart.minPurchaseReached ? 'between' : 'center' }}">
+      <button id="mobile-keep-buying-s3" class="w-50 {{ cart.minPurchaseReached ? 'link' : 'btn-square-black' }}" (click)="changeStep(2)">
+        {{ ROOT + 'ORDER_DETAIL.BUTTON.KEEP_BUYING' | translate }}
+      </button>
+      <button id="show-detail-order" *ngIf="cart.minPurchaseReached" class="btn-square-black w-50" (click)="changeStep(5)">
+        {{ ROOT + 'ORDER_DETAIL.BUTTON.CONTINUE' | translate }} <span>{{ cart.totalPrice | kaCurrency }}</span>
+      </button>
+      <!--<button id="show-detail-order" *ngIf="cart.minPurchaseReached && user.countryId != 'PY'" class="btn-square-black w-50" (click)="changeStep(4)">
+        {{ ROOT + 'ORDER_DETAIL.BUTTON.CONTINUE' | translate }} <span>{{ cart.totalPrice | kaCurrency }}</span>
+      </button>-->
+    </div>
+
+    <ng-container *ngIf="currentStep.id === 4">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <button id="mobile-keep-buying-s4" class="link" (click)="changeStep(2)">{{ ROOT + 'ORDER_DETAIL.BUTTON.KEEP_BUYING' | translate }}</button>
+        <button id="confirm-order" class="btn-square-black w-50" (click)="createOrder()">{{ ROOT + 'ORDER_DETAIL.BUTTON.END_ORDER' | translate }}</button>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="currentStep.id === 5">
+      <div class="d-flex align-items-center justify-content-between w-100">
+        <button id="mobile-keep-buying-s4" class="link" (click)="changeStep(2)">{{ ROOT + 'ORDER_DETAIL.BUTTON.KEEP_BUYING' | translate }}</button>
+        <button id="confirm-order" class="btn-square-black w-50" (click)="changeStep(4)">
+          {{ ROOT + 'ORDER_DETAIL.BUTTON.CONTINUE' | translate }} <span>{{ cart.totalPrice | kaCurrency }}</span>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+</div>

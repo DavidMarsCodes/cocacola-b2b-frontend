@@ -1,0 +1,35 @@
+<div class="card container" [ngClass]="{ home: page == 'home', alternative: homeStyle == 2, unavailable: unavailable }">
+  <div class="row image">
+    <img class="image-product" [src]="product.image" alt="" (error)="onImgError()" />
+  </div>
+  <div class="product-name pt-3 pb-2" [ngClass]="{ home: page == 'home' }">
+    <span>{{ product.name }}</span>
+  </div>
+  <div class="product-price mt-auto py-2" [ngClass]="{ home: page == 'home' }">
+    <small *ngIf="product.price.listPrice !== product.price.finalPrice" class="d-inline-block mr-3">{{ product.price.listPrice | kaCurrency }}</small>
+    <span>{{ product.price.finalPrice | kaCurrency }}</span>
+  </div>
+  <div *ngIf="page != 'home'" class="row product-quantity d-flex align-items-center justify-content-center">
+    <ng-container *ngIf="!unavailable">
+      <div class="btn-pill quantity">
+        <span (click)="removeProduct()" class="button noselect">
+          <fa-icon icon="minus"></fa-icon>
+        </span>
+        <input type="number" [(ngModel)]="product.quantitySelected" (keydown)="validQuantLength($event)" (paste)="onQuantityPaste($event)" />
+        <span (click)="addProduct()" class="button noselect">
+          <fa-icon icon="plus"></fa-icon>
+        </span>
+      </div>
+      <button
+        [disabled]="!product.quantitySelected || product.quantitySelected < 1 || !isInteger(product.quantitySelected)"
+        class="btn-pill-add w-auto noselect"
+        (click)="addProductToCart(product)"
+      >
+        {{ 'NEW_ORDER.ORDER_DETAIL.ADD' | translate }}
+      </button>
+    </ng-container>
+    <ng-container *ngIf="unavailable">
+      <button class="btn-pill-add w-auto" disabled>Sin stock</button>
+    </ng-container>
+  </div>
+</div>

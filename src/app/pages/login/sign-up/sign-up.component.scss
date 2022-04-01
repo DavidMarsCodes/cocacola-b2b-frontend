@@ -1,0 +1,36 @@
+@import '../login.component.scss';
+
+.header,
+.body,
+.footer {
+  min-height: 15%;
+}
+.info {
+  cursor: pointer;
+  svg {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+::ng-deep .custom-message {
+  font-size: 1.6rem;
+  line-height: 2rem;
+
+  @media (max-width: $sm) {
+    // transform: translate(110px, 315px) !important;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+  }
+}
+
+::ng-deep ngb-tooltip-window.bs-tooltip-top .arrow {
+  left: calc(70% - 0.4rem);
+}
+
+.check-legals label {
+  font-size: 1.5rem !important;
+}
+
+#go-to-sign-in {
+  font-size: 1.7rem !important;
+}

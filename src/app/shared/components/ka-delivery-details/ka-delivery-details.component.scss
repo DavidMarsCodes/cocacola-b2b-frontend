@@ -1,0 +1,27 @@
+@import 'variables';
+.delivery-details {
+  border: 1px solid $grey;
+}
+div {
+  width: 100%;
+  &:not(:last-child) {
+    margin: 2.5rem 0;
+    @media (max-width: $lg) {
+      margin: 1.5rem 0;
+    }
+  }
+  svg {
+    color: $red;
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-right: 1rem;
+  }
+}
+.span-delivery-date {
+  display: inline-block;
+  font-weight: bold;
+  margin-left: 3.7rem;
+}
+.icon-delivery-date {
+  display: inline-block;
+}

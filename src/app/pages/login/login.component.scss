@@ -1,0 +1,205 @@
+@import 'variables';
+// @import 'node_modules/bootstrap/scss/bootstrap';
+
+// GENERAL LOGIN STYLES
+a,
+p,
+button {
+  font-size: 1.5rem !important;
+  box-shadow: none !important;
+}
+
+.container {
+  height: calc(100vh - 68px);
+  max-width: 500px;
+  margin-top: 68px;
+}
+
+.blue-link {
+  height: auto;
+  // &:first-child {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  // }
+  @media (max-width: $lg) {
+    line-height: 12px;
+    font-size: 14px !important;
+  }
+}
+
+.title-h1 {
+  @media (max-width: $lg) {
+    line-height: 20px;
+    font-size: 20px !important;
+  }
+}
+
+.subtitle {
+  font-style: normal;
+  line-height: 28px;
+  font-size: 1.8rem !important;
+  color: #a1a1a1;
+  @media (max-width: $lg) {
+    line-height: 16px;
+    font-size: 14px !important;
+  }
+}
+
+.subtitle-black {
+  font-size: 1.8rem;
+  color: #1a1a1a;
+}
+
+label {
+  font-size: 1.4rem;
+  @media (max-width: $lg) {
+    line-height: 10px;
+    font-size: 10px !important;
+  }
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid grey;
+  background-color: $light-grey;
+  border-radius: 0;
+  &:focus {
+    background-color: $light-grey;
+    box-shadow: none;
+  }
+  @media (max-width: $lg) {
+    background-color: $white;
+    &:focus {
+      background-color: $white;
+    }
+  }
+}
+
+.button-red-border {
+  color: $red;
+  font-size: 14px;
+  line-height: 17px;
+  border-radius: 10px;
+  padding: 8px 25px;
+  width: 100%;
+  background-color: $white;
+  border: 2px solid $red;
+}
+
+.button-grey {
+  background-color: #e9ebeb !important;
+  color: #000 !important;
+  border: #e9ebeb 2px solid !important;
+}
+
+button:disabled {
+  background-color: #d8dadb !important;
+  color: #000 !important;
+  border: #d8dadb 2px solid !important;
+}
+
+.invalid-feedback {
+  font-size: 1.3rem;
+  span {
+    display: none;
+    &:first-child {
+      display: block !important;
+    }
+  }
+}
+
+form.service-error {
+  input,
+  .phone-code-button {
+    border-bottom: 1px solid red !important;
+  }
+}
+
+.phone-code-dot {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #a1a1a1;
+}
+
+.phone-code {
+  button {
+    border-radius: 0;
+    padding: 4px 12px 6px 12px;
+    color: #000;
+    border: none;
+    height: 33px;
+  }
+
+  &-button {
+    background-color: $light-grey !important;
+    border-bottom: solid 1px grey !important;
+    border: none;
+  }
+
+  &-dropdown button {
+    background-color: #fff;
+    border-bottom: none !important;
+    border: none;
+  }
+}
+
+.email-help {
+  height: 33px;
+}
+
+// HOME LOGIN STYLES
+
+.login-image {
+  width: 100%;
+  height: 100vh;
+  background-image: url('/assets/media/banners/home-start.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+section {
+  height: 100vh;
+  @media (max-width: $md) {
+    margin-top: 68px;
+    height: calc(100vh - 68px);
+    @supports (-webkit-touch-callout: none) {
+      margin-top: 0;
+      height: 100vh;
+    }
+  }
+  .login-options-container {
+    max-width: 600px;
+    min-width: 60%;
+    @media (max-width: $md) {
+      padding: 0 10px;
+      max-width: 400px;
+    }
+    .login-option {
+      cursor: pointer;
+      background: $white;
+      box-shadow: $shadow;
+      border-radius: 5px;
+      padding: 4rem;
+      margin-bottom: 20px;
+      @media (max-width: $md) {
+        padding: 30px 15px 30px 30px;
+      }
+      .bg-red-circle {
+        background: #d0001d;
+        border-radius: 103px;
+        position: absolute;
+      }
+      p {
+        line-height: 19px;
+        color: #1a1a1a;
+        margin-bottom: 0;
+        @media (max-width: $md) {
+          line-height: 13px;
+        }
+      }
+    }
+  }
+}

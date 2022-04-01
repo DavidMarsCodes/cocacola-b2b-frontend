@@ -1,0 +1,37 @@
+<div [class]="data.customClass">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title"></h4>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body" *ngIf="data.noDatesError">
+    <img class="my-4" src="/assets/media/emojis/tristecito.png" alt="" />
+
+    <h3 *ngIf="data.text" class="title my-2">
+      {{ ROOT + data.text | translate }}
+    </h3>
+  </div>
+  <div class="modal-body" *ngIf="!data.noDatesError">
+    <img class="my-4" src="/assets/media/emojis/confirm-order.png" alt="" />
+
+    <h3 *ngIf="data.text && data.dateDelivery" class="title my-2">
+      {{ ROOT + data.text | translate: { deliveryDate: data.dateDelivery | kaDate: 'day mm/dd' } }}
+    </h3>
+    <h3 *ngIf="data.text && !data.dateDelivery" class="title my-2">{{ ROOT + 'FROZEN_DATE_SELECTION' | translate }}</h3>
+
+    <div *ngIf="data.type">
+      <app-ka-select-delivery-date [visitType]="data.type"></app-ka-select-delivery-date>
+    </div>
+
+    <p *ngIf="data.description" class="description">{{ ROOT + data.description | translate }}</p>
+  </div>
+  <div *ngIf="showFooterButtons" class="modal-footer d-flex justify-content-center">
+    <button *ngIf="data.rejectBtnLabel" [id]="data.id + '-cancel-modal'" type="button" class="btn-square border-0" (click)="reject()">
+      {{ data.rejectBtnLabel }}
+    </button>
+    <button *ngIf="data.confirmBtnLabel" [id]="data.id + '-confirm-modal'" class="btn-square-black" (click)="confirm()">
+      {{ ROOT + data.confirmBtnLabel | translate }}
+    </button>
+  </div>
+</div>

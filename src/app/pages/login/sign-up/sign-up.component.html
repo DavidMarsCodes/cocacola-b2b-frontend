@@ -1,0 +1,186 @@
+<app-ka-login-navbar *ngIf="currentStep" [hasBackButton]="currentStep.hasBackButton" (goStepBack)="goStepBack()"></app-ka-login-navbar>
+
+<form *ngIf="currentStep" [formGroup]="loginForm" [ngClass]="{ 'service-error': serviceError }">
+  <div class="container d-flex justify-content-center align-items-center flex-wrap">
+    <div class="header w-100 text-left">
+      <h1 class="title-h1 w-100">{{ currentStep.title }}</h1>
+      <p *ngIf="currentStep.subtitle" class="subtitle w-100">{{ currentStep.subtitle }}</p>
+    </div>
+
+    <div *ngIf="stepIndex !== 0" class="body w-100" [ngSwitch]="currentStep.stepName">
+      <div *ngSwitchCase="LoginSteps.FIRST_NAME" class="form-group">
+        <input
+          formControlName="firstName"
+          type="text"
+          class="form-control"
+          [placeholder]="ROOT_LANG + 'FIRST_NAME.PLACEHOLDER' | translate"
+          minlength="2"
+          maxlength="48"
+          (blur)="trimValue($event)"
+        />
+        <div *ngIf="loginForm.controls.firstName.dirty && !loginForm.controls.firstName.valid" class="invalid-feedback d-block">
+          <span *ngIf="loginForm.controls.firstName.errors.pattern">El nombre es inválido</span>
+          <span *ngIf="loginForm.controls.firstName.errors.minlength">El nombre debe tener al menos dos caracteres</span>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="LoginSteps.LAST_NAME" class="form-group">
+        <input
+          formControlName="lastName"
+          type="text"
+          class="form-control"
+          [placeholder]="ROOT_LANG + 'LAST_NAME.PLACEHOLDER' | translate"
+          minlength="2"
+          maxlength="48"
+          (blur)="trimValue($event)"
+        />
+        <div *ngIf="loginForm.controls.lastName.dirty && !loginForm.controls.lastName.valid" class="invalid-feedback d-block">
+          <span *ngIf="loginForm.controls.lastName.errors.pattern">{{ 'ERRORS.2006' | translate }}</span>
+          <span *ngIf="loginForm.controls.lastName.errors.minlength">{{ 'ERRORS.LASTNAME_FORMAT' | translate }}</span>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="LoginSteps.EMAIL" class="form-group">
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          [placeholder]="ROOT_LANG + 'EMAIL.PLACEHOLDER' | translate"
+          maxlength="48"
+          (blur)="trimValue($event)"
+        />
+        <div *ngIf="loginForm.controls.email.touched && !loginForm.controls.email.valid" class="invalid-feedback d-block">
+          {{ 'ERRORS.EMAIL_FORMAT_ERROR' | translate }}
+        </div>
+      </div>
+
+      <div *ngSwitchCase="LoginSteps.PHONE" class="input-group">
+        <div ngbDropdown class="mb-1 phone-code">
+          <button class="phone-code-button btn btn-secondary" id="phone-code-dropdown" ngbDropdownToggle>
+            <span class="phone-code-dot"></span><span class="align-middle ml-2">{{ phoneCodeSelected }}</span>
+          </button>
+          <div class="phone-code-dropdown" ngbDropdownMenu aria-labelledby="phone-code-dropdown">
+            <button (click)="phoneCodeSelected = phoneCode" *ngFor="let phoneCode of phonesCodes" class="dropdown-item" ngbDropdownItem>
+              <span class="phone-code-dot"></span><span class="align-middle ml-2">{{ phoneCode }}</span>
+            </button>
+          </div>
+        </div>
+        <input
+          formControlName="phone"
+          type="tel"
+          class="form-control email-help"
+          [placeholder]="ROOT_LANG + 'PHONE.PLACEHOLDER' | translate"
+          onkeydown="return event.keyCode !== 69"
+          (input)="onPhoneInput($event)"
+        />
+        <div *ngIf="loginForm.controls.phone.touched && !loginForm.controls.phone.valid" class="invalid-feedback d-block">
+          <span *ngIf="loginForm.controls.phone.errors.pattern">{{ ROOT_LANG + 'PHONE.REGEX_MSG' | translate }}</span>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="LoginSteps.RUT_NUMBER">
+        <input
+          formControlName="rutNumber"
+          [type]="userLocal.geoCountryCode === CountryCodes.CHILE || userLocal.geoCountryCode === CountryCodes.PARAGUAY ? 'text' : 'tel'"
+          class="form-control"
+          [placeholder]="ROOT_LANG + 'ID.PLACEHOLDER' | translate"
+          [maxlength]="countrySelected.maxlengthFiscalId"
+          (input)="onCuitInput()"
+          (blur)="trimValue($event)"
+        />
+        <div *ngIf="loginForm.controls.rutNumber.touched && !loginForm.controls.rutNumber.valid" class="invalid-feedback d-block">
+          <span *ngIf="loginForm.controls.rutNumber.errors.fiscalIdPattern">{{ ROOT_LANG + 'ID.REGEX_MSG' | translate }}</span>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="LoginSteps.CLIENT_NUMBER" class="form-group">
+        <input
+          formControlName="clientNumber"
+          type="text"
+          class="form-control"
+          minlength="2"
+          maxlength="25"
+          [placeholder]="ROOT_LANG + 'CLIENT_NUMBER.PLACEHOLDER' | translate"
+          (input)="trimValue($event)"
+        />
+        <div *ngIf="loginForm.controls.clientNumber.touched && !loginForm.controls.clientNumber.valid" class="invalid-feedback d-block">
+          <span *ngIf="loginForm.controls.clientNumber.errors.minlength">{{ 'ERRORS.CLIENT_NUMBER_FORMAT' | translate }}</span>
+        </div>
+        <div class="text-right grey-link mt-2">
+          <p class="d-inline" placement="bottom" popoverClass="login-client-num-popover" autoClose="outside" [ngbPopover]="popContent">
+            {{ ROOT_LANG + 'CLIENT_NUMBER.HELP' | translate }}
+          </p>
+        </div>
+        <ng-template #popContent>
+          <img src="../../../assets/media/nro-cliente-help-4.png" alt="" />
+        </ng-template>
+      </div>
+
+      <div *ngSwitchCase="LoginSteps.PASSWORD" class="form-group">
+        <div class="d-flex flex-row align-items-center justify-content-between">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            class="form-control"
+            minlength="8"
+            maxlength="16"
+            [placeholder]="ROOT_LANG + 'PASSWORD.PLACEHOLDER' | translate"
+            (blur)="trimValue($event)"
+          />
+        </div>
+        <div *ngIf="serviceError" class="invalid-feedback d-block">
+          <span>{{ serviceErrorMsg }}</span>
+        </div>
+        <div *ngIf="loginForm.controls.password.touched && !loginForm.controls.password.valid" class="invalid-feedback d-block">
+          <span *ngIf="loginForm.controls.password.errors.pattern">{{ 'ERRORS.INVALID_PASSWORD' | translate }}</span>
+        </div>
+        <div class="row mt-3">
+          <div class="col-7 text-left ml-0">
+            <!-- <input type="checkbox" id="savePassCheckbox" />
+            <label class="checkbox" for="savePassCheckbox" class="dark-link m-0">{{ ROOT_LANG + 'PASSWORD.REMEMBER_PWD' | translate }}</label> -->
+          </div>
+          <div class="col-5 text-right">
+            <label (click)="showPassword = !showPassword" class="dark-link">
+              <span *ngIf="showPassword">{{ ROOT_LANG + 'PASSWORD.HIDE_PWD' | translate }}</span>
+              <span *ngIf="!showPassword">{{ ROOT_LANG + 'PASSWORD.SHOW_PWD' | translate }}</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div *ngSwitchCase="LoginSteps.CONFIRM_CODE">
+        <app-ka-splitted-input [code]="confirmCode" (valueUpdated)="splittedInputUpdated($event)"></app-ka-splitted-input>
+        <div *ngIf="serviceError" class="invalid-feedback d-block">
+          <span>{{ serviceErrorMsg }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer w-100">
+      <div *ngIf="currentStep.stepName === LoginSteps.LEGALS" class="check-legals">
+        <input formControlName="legals" type="checkbox" id="check-legals" />
+        <label class="checkbox dark-link" for="check-legals">{{ ROOT_LANG + 'LEGALS.CHECK_1' | translate }}</label>
+        <a (click)="openTyCModal()" id="legals-link" class="blue-link"> {{ ROOT_LANG + 'LEGALS.CHECK_2' | translate }}</a>
+      </div>
+      <div *ngIf="currentStep.stepName === LoginSteps.CONFIRM_CODE" class="text-center">
+        <a (click)="resendSignUp()" class="blue-link d-inline-block mb-2">{{ ROOT_LANG + 'PASSWORD.RE_SEND_CODE' | translate }}</a>
+      </div>
+      <button
+        (click)="nextStep()"
+        type="button"
+        class="btn btn-light btn-block button-red-border mt-3"
+        [disabled]="!isTheStepValid()"
+        [id]="currentStep.stepName"
+      >
+        {{ 'CONTINUE' | translate }}
+      </button>
+      <a *ngIf="currentStep.stepName === LoginSteps.LEGALS" routerLink="/sign-in" class="blue-link-bold text-center d-block my-5" id="go-to-sign-in">
+        {{ ROOT_LANG + 'LEGALS.SIGN_IN' | translate }}
+      </a>
+
+      <div class="d-flex justify-content-center mt-5">
+        <app-ka-dot-stepper [totalSteps]="loginSteps.length" [currentStep]="stepIndex"></app-ka-dot-stepper>
+      </div>
+    </div>
+  </div>
+</form>

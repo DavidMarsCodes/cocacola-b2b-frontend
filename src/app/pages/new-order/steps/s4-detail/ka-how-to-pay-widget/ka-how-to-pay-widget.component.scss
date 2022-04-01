@@ -1,0 +1,35 @@
+@import 'variables';
+.my-order-widget {
+  background-color: $white;
+  padding: 2.5rem;
+  border-radius: 10px;
+  border: 1px solid $grey;
+  .title {
+    font-size: 14px;
+    line-height: 13px;
+    font-family: $font-bold;
+    margin-bottom: 10px;
+    @media (min-width: $lg) {
+      font-size: 16px;
+    }
+  }
+  .subtitle {
+    font-size: 14px;
+    font-family: $font-medium;
+    @media (min-width: $lg) {
+      font-family: $font-bold;
+      font-size: 14px;
+    }
+  }
+  .button {
+    font-size: 14px;
+    font-family: $font-medium;
+    @media (min-width: $lg) {
+      font-size: 16px;
+    }
+  }
+  svg {
+    color: $red;
+    height: 20px;
+  }
+}

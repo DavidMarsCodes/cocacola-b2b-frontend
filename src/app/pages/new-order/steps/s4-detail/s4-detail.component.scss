@@ -1,0 +1,44 @@
+@import 'styles';
+@import 'variables';
+@import './../../new-order.component.scss';
+
+section {
+  width: 100%;
+  margin: 3rem 0;
+  .title {
+    font-size: 2rem;
+    line-height: 2.2rem;
+    font-family: $font-bold;
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  &.my-order-table {
+    position: relative;
+    background-color: $white;
+
+    margin-bottom: 2rem;
+    border-radius: 10px;
+
+    .delete-cart {
+      text-align: center;
+      font-size: 1.4rem;
+    }
+  }
+}
+.ka-time-delivery {
+  font-size: 1.5rem;
+  margin-top: auto;
+}
+.mat-expansion-panel {
+  margin: auto;
+}
+
+.mat-expansion-panel-header-description {
+  flex-grow: 90 !important;
+  color: red;
+}
+.payment-method {
+  @media (max-width: $lg) {
+    margin-bottom: 20px;
+  }
+}

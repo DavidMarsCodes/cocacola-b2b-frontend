@@ -1,0 +1,144 @@
+<div class="row m-0">
+  <div class="col-12 nav">
+    <app-ka-navbar class="w-100"></app-ka-navbar>
+  </div>
+  <div class="home col-12 scroll-grey">
+    <div class="row mb-4">
+      <div class="col-12">
+        <p class="title mb-2">{{ ROOT_LANG + 'TITLE' | translate }}</p>
+        <p class="subtitle">
+          {{ ROOT_LANG + 'SUBTITLE' | translate }} <strong>{{ selectedClient.street }} {{ selectedClient.doorNumber }} </strong>
+        </p>
+      </div>
+    </div>
+    <div class="row mb-3" *ngIf="discounts && !loading">
+      <div class="col-12">
+        <div class="my-4 red-alert">
+          <div>
+            <svg>
+              <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-alert-circle" />
+            </svg>
+          </div>
+          <p *ngIf="discounts.length !== 0" class="message">{{ ROOT_LANG + 'INFO_MESSAGE' | translate }}</p>
+          <p *ngIf="discounts.length === 0" class="message">{{ ROOT_LANG + 'INFO_NO_DATA' | translate }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!loading && discounts.length > 0" class="border-top-red ka-card">
+      <div>
+        <table mat-table [dataSource]="dataSource" multiTemplateDataRows matSort>
+          <ng-container matColumnDef="promos">
+            <th mat-header-cell *matHeaderCellDef class="header">{{ ROOT_LANG + 'PROMO_TITLE' | translate }}</th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{ disabled: !element.active }">
+              <div>
+                <svg *ngIf="!element.active" class="img-fluid mr-2 icon-ka-sidebar" stroke-width="3.25">
+                  <use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-alert-circle'" />
+                </svg>
+                {{ element.name }}
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="benefits">
+            <th mat-header-cell *matHeaderCellDef class="header">{{ ROOT_LANG + 'RECOMPENSA_TITLE' | translate }}</th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{ disabled: !element.active }" class="discount-detail">
+              <svg *ngIf="element.active" class="svg-container mr-4 icon-ka-sidebar" stroke-width="3.25">
+                <use [attr.xlink:href]="'./assets/icons/badge-percent.svg#badge-percent-mini'" />
+              </svg>
+
+              <svg *ngIf="!element.active" class="svg-container-disabled img-fluid mr-2 icon-ka-sidebar" stroke-width="3.25">
+                <use [attr.xlink:href]="'./assets/icons/badge-percent.svg#badge-percent-mini'" />
+              </svg>
+              <strong *ngIf="element.discountType !== 'S'">{{ element.amountDiscount[0].amount / 100 | percent: '1.1' }}{{ ' ' }}</strong>
+              <strong>{{ element.detail }}</strong>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef class="header"></th>
+            <td mat-cell *matCellDef="let element" [ngClass]="{ disabled: !element.active }">
+              <div class="left-align">
+                <div *ngIf="element.discountType === 'S' || !element.active">
+                  <button mat-icon-button class="btn-icon-ex">
+                    <mat-icon class="material-icons" [ngClass]="element.discountType === 'S' || !element.active ? 'expanded-icon' : 'collapse-icon'"
+                      >expand_more
+                    </mat-icon>
+                  </button>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length" [ngClass]="{ disabled: !element.active }">
+              <div *ngIf="element.discountType === 'S' || !element.active">
+                <div class="ka-element-detail" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
+                  <div class="col-3">
+                    <div class="ka-element-description" *ngIf="!element.active">
+                      {{ ROOT_LANG + 'INACTIVE_DATE_LABEL' | translate }} <strong> {{ element.updatedTime | kaDate }} </strong>
+                      <div *ngIf="element.modifiedBy">
+                        |
+                        {{ ROOT_LANG + 'MODIFIED_BY' | translate }}
+                        <strong> {{ element.modifiedBy }} </strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-5">
+                    <div class="th-cell ka-element-description">
+                      <div *ngIf="element.discountType === 'S'">
+                        <div *ngFor="let amounts of element.amountDiscount">
+                          {{ ROOT_LANG + 'BUYING_FROM' | translate }} {{ amounts.scale.escaleQtyMin }} {{ ROOT_LANG + 'RANGE_PRODUCT' | translate }}
+                          {{ amounts.scale.escaleQtyMax }} {{ ROOT_LANG + 'PRODUCTS' | translate }} <strong>{{ amounts.amount / 100 | percent: '1.1' }}</strong>
+                          {{ ROOT_LANG + 'REF_DISCOUNT' | translate }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-4">
+                    <div class="ka-element-description"></div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            *matRowDef="let element; columns: displayedColumns"
+            class="ka-element-row"
+            [class.ka-expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element"
+          ></tr>
+
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="ka-detail-row"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons></mat-paginator>
+      </div>
+
+      <div *ngIf="!loading" class="legals">
+        <a (click)="openDocModal()" id="rewards_terms" class="blue-link">
+          <strong *ngIf="!isMobile()">{{ ROOT_LANG + 'LEGALS' | translate }} </strong>
+          <small *ngIf="isMobile()">{{ ROOT_LANG + 'LEGALS' | translate }} </small>
+        </a>
+      </div>
+    </div>
+
+    <div class="btn-new-order row d-none d-md-flex pb-4 px-5">
+      <div class="col-4">
+        <button id="place_new_order" class="btn-square-black w-100" [routerLink]="'/main/nuevo-pedido/1'">{{ ROOT_LANG + 'NEW_ORDER' | translate }}</button>
+      </div>
+    </div>
+    <div class="modal-footer row d-md-none pb-4 px-5">
+      <div class="col-12 mb-3">
+        <button id="place_new_order" class="btn-square-black w-100" [routerLink]="'/main/nuevo-pedido/1'">
+          {{ ROOT_LANG + 'NEW_ORDER' | translate }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

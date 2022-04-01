@@ -1,0 +1,53 @@
+name: deploy-frontend-staging
+
+on:
+  push:
+    branches:
+      - staging
+    paths-ignore:
+      - '.github/**'
+
+jobs:
+  app:
+    name: '[Build & Publish][STG] Frontend'
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install AWS cli
+        run: |
+          /usr/local/bin/aws --version
+
+      - name: Install NodeJs dependencies
+        run: |
+          npm i -g @angular/cli
+          npm install
+
+      - name: STG - Build
+        run: |
+          npm run build:stage
+
+      - name: STG - Upload S3
+        run: |
+          cd dist/cocacola-andina
+          aws s3 sync . s3://b2b-frontend-stage/ --delete --region us-east-1 --debug
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.STG_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.STG_AWS_SECRET_ACCESS_KEY }}
+
+      - name: STG - Refresh Cloudfront
+        run: |
+          aws cloudfront create-invalidation --distribution-id=EO1O926PEGUT9 --paths '/*' --debug
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.STG_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.STG_AWS_SECRET_ACCESS_KEY }}
+
+      - name: STG - Fix Permission TyC
+        run: |
+          aws s3 ls s3://b2b-frontend-stage/assets/docs/tyc/ --recursive | awk '{cmd="aws s3api put-object-acl --acl public-read --bucket b2b-frontend-stage --key "$4; system(cmd)}'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.STG_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.STG_AWS_SECRET_ACCESS_KEY }}

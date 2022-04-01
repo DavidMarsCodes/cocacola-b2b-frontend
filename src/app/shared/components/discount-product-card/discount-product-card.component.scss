@@ -1,0 +1,169 @@
+@import 'variables';
+.card-square {
+  border: 1px solid $grey;
+  box-sizing: border-box;
+  border-radius: 9px;
+  height: 100%;
+  .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-discount {
+      width: 19rem;
+      height: 19rem;
+    }
+    @media (min-width: $lg) and (max-width: $xl) {
+      &-discount {
+        width: 16rem;
+        height: 16rem;
+      }
+    }
+    .info {
+      top: 5px;
+      left: 5px;
+      position: absolute;
+    }
+  }
+  .discount-data {
+    padding: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.4rem;
+    color: $dark;
+    &.US {
+      min-height: 93px;
+    }
+    &.home {
+      border-radius: 10px;
+    }
+  }
+  .discount-name {
+    font-size: 1.4rem;
+    margin: 3px 0;
+    display: block;
+    line-height: 1.6rem;
+  }
+  .discount-label {
+    font-size: 1.4rem;
+    margin: 3px 0;
+    display: block;
+    line-height: 1.6rem;
+    color: red;
+    font-family: $font-bold;
+  }
+  .discount-limit {
+    font-size: 1.3rem;
+    font-family: $font-bold;
+  }
+  .discount-price {
+    small {
+      text-decoration: line-through;
+      font-size: 1.3rem;
+      line-height: 1.2rem;
+      display: inline-block;
+      margin-right: 1rem;
+    }
+    span {
+      font-size: 1.7rem;
+      line-height: 2.5rem;
+      font-weight: bold;
+    }
+  }
+  .discount-quantity {
+    padding-bottom: 5px;
+    fa-icon {
+      font-size: 1rem;
+      @media (max-width: $lg) {
+        font-size: 12px;
+      }
+    }
+    span {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      @media (max-width: $lg) {
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+  }
+}
+
+.card-row {
+  border: 0.900231px solid #f6f6f6;
+  margin-bottom: 5px;
+  box-shadow: $shadow;
+  border-radius: 10.9322px;
+  font-size: 1.3rem;
+  .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 150px;
+  }
+  .discount-data {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+    line-height: 1.8rem;
+    color: $dark;
+    .suggested {
+      line-height: 1.4rem;
+      color: $green;
+      margin-bottom: 0;
+    }
+    font-size: 1.5rem;
+    @media (max-width: $md) {
+      font-size: 1.3rem;
+    }
+    .discount-label {
+      margin: 3px 0;
+      display: block;
+      line-height: 1.6rem;
+      color: red;
+      font-family: $font-bold;
+    }
+    .discount-limit {
+      font-size: 1.3rem;
+      font-family: $font-bold;
+    }
+  }
+  .discount-price-cont {
+    justify-content: center;
+    @media (max-width: $md) {
+      justify-content: start;
+      margin-left: 1rem;
+    }
+    .discount-price {
+      small {
+        text-decoration: line-through;
+        font-size: 1.6rem;
+        line-height: 1.2rem;
+        display: inline-block;
+        margin-right: 1rem;
+        @media (max-width: $md) {
+          font-size: 1.4rem;
+        }
+      }
+      span {
+        font-size: 1.9rem;
+        line-height: 2.5rem;
+        font-weight: bold;
+        @media (max-width: $md) {
+          font-size: 1.7rem;
+        }
+      }
+    }
+  }
+  .discount-quantity {
+    @media (max-width: $sm) {
+      .btn-pill,
+      .btn-pill-add-enabled {
+        width: 8.5rem !important;
+        font-size: 1.2rem;
+      }
+    }
+    .info {
+      cursor: pointer;
+    }
+  }
+}

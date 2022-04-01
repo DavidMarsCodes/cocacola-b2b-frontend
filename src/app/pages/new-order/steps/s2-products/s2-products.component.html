@@ -1,0 +1,209 @@
+<div class="w-100" [id]="primaryFilter">
+  <!-- Pimary Filters -->
+  <div class="primary-filters d-flex align-items-stretch justify-content-between mb-4">
+    <button class="{{ primaryFilter === ProductTypes.SUGGESTED ? 'btn-square-red' : 'btn-square' }}" (click)="filterBy(ProductTypes.SUGGESTED)">
+      Sugeridos
+    </button>
+    <button class="{{ primaryFilter === ProductTypes.PACK ? 'btn-square-red' : 'btn-square' }}" (click)="filterBy(ProductTypes.PACK)">
+      {{ 'NEW_ORDER.SUGGESTED_PRODUCTS.PROMOS' | translate }}
+    </button>
+    <button class="{{ primaryFilter === ProductTypes.UNIT ? 'btn-square-red' : 'btn-square' }}" (click)="filterBy(ProductTypes.UNIT)">
+      {{ 'NEW_ORDER.SUGGESTED_PRODUCTS.PRODUCTS' | translate }}
+    </button>
+  </div>
+
+  <!-- Service Filters -->
+  <div *ngIf="primaryFilter === ProductTypes.UNIT" class="filters-menu d-lg-flex flex-column mb-3 d-none">
+    <!-- Tags -->
+    <div class="first-filters">
+      <div *ngFor="let category of categories" (click)="searchByCategory(category)" [ngClass]="{ selected: productFilter.category === category }">
+        {{ category }}
+        <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-x" /></svg>
+      </div>
+    </div>
+    <div class="second-filters w-50 d-flex flex-row align-items-center justify-content-between mx-auto">
+      <!-- Returnability -->
+      <div class="switch d-flex flex-row align-items-center mr-5">
+        <div
+          style="min-width: 13rem"
+          [ngClass]="{ selected: productFilter.returnability === false, disabled: !returnabilityCondition?.hasDisposable }"
+          (click)="searchByReturnability(false, !returnabilityCondition.hasDisposable)"
+        >
+          {{ ROOT_LANG + 'SORTER.NON_RETORNABLE' | translate }}
+        </div>
+        <div
+          [ngClass]="{ selected: productFilter.returnability === true, disabled: !returnabilityCondition?.hasReturnable }"
+          (click)="searchByReturnability(true, !returnabilityCondition.hasReturnable)"
+        >
+          {{ ROOT_LANG + 'SORTER.RETORNABLE' | translate }}
+        </div>
+      </div>
+      <!-- Select Fields -->
+      <div class="select-field-filter">
+        <div *ngIf="!productFilter.package" ngbDropdown class="dropdown">
+          <button class="btn btn-outline-primary" ngbDropdownToggle class="dropdown-header dropdown-elem">
+            {{ ROOT_LANG + 'SELECT.PACKAGE' | translate }}
+          </button>
+          <div class="dropdown-menu" ngbDropdownMenu>
+            <button *ngFor="let package of packages" ngbDropdownItem (click)="productFilter.package = package; reSearchProducts()" class="dropdown-elem">
+              {{ package }}
+            </button>
+          </div>
+        </div>
+        <div *ngIf="productFilter.package" class="filter-selected row pl-4">
+          <div class="filter-selected-category mr-2">{{ productFilter.package }}</div>
+          <div class="d-flex align-items-center">
+            <svg (click)="productFilter.package = ''; reSearchProducts()"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-x" /></svg>
+          </div>
+        </div>
+      </div>
+      <div class="select-field-filter">
+        <div>
+          <div *ngIf="!productFilter.size" ngbDropdown class="dropdown">
+            <button class="btn btn-outline-primary" ngbDropdownToggle class="dropdown-header dropdown-elem">
+              {{ ROOT_LANG + 'SELECT.FORMAT' | translate }}
+            </button>
+            <div ngbDropdownMenu>
+              <button *ngFor="let size of sizes" ngbDropdownItem (click)="productFilter.size = size; reSearchProducts()" class="dropdown-elem">
+                {{ size }}
+              </button>
+            </div>
+          </div>
+          <div *ngIf="productFilter.size" class="filter-selected row pl-4">
+            <div class="filter-selected-category mr-2">{{ productFilter.size }}</div>
+            <div class="d-flex align-items-center">
+              <svg (click)="productFilter.size = ''; reSearchProducts()"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-x" /></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="select-field-filter">
+        <div *ngIf="!productFilter.brand" ngbDropdown class="dropdown">
+          <button class="btn btn-outline-primary" ngbDropdownToggle class="dropdown-header dropdown-elem">{{ ROOT_LANG + 'SELECT.BRAND' | translate }}</button>
+          <div ngbDropdownMenu>
+            <button *ngFor="let brand of brands" ngbDropdownItem (click)="productFilter.brand = brand; reSearchProducts()" class="dropdown-elem">
+              {{ brand }}
+            </button>
+          </div>
+        </div>
+        <div *ngIf="productFilter.brand" class="filter-selected row pl-4">
+          <div class="filter-selected-category mr-2">{{ productFilter.brand }}</div>
+          <div class="d-flex align-items-center">
+            <svg (click)="productFilter.brand = ''; reSearchProducts()"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-x" /></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex flex-row align-items-stretch">
+    <!-- Search Filter -->
+    <div class="table-controls mb-3">
+      <div class="search d-inline" *ngIf="primaryFilter === ProductTypes.UNIT">
+        <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-search" /></svg>
+        <input (input)="searchByText()" [(ngModel)]="productFilter.text" name="search" id="search-products-sm" />
+        <svg (click)="productFilter.text = ''; reSearchProducts()" class="trash"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-trash" /></svg>
+      </div>
+
+      <!-- Select View -->
+      <div class="views mx-3">
+        <div class="view d-flex align-items-center mr-3" [ngClass]="{ selected: viewGrid }" (click)="viewGrid = true">
+          <fa-icon [icon]="['fas', 'th']"></fa-icon>
+          <span class="d-none d-lg-inline-block">{{ ROOT_LANG + 'VIEW.GRID' | translate }}</span>
+        </div>
+        <div class="view d-flex align-items-center" [ngClass]="{ selected: !viewGrid }" (click)="viewGrid = false">
+          <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+          <span class="d-none d-lg-inline-block">{{ ROOT_LANG + 'VIEW.TABLE' | translate }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- OrderBy -->
+    <div class="order-by d-none">
+      <span class="my-1">Ordenar</span>
+      <select class="my-1">
+        <option>{{ ROOT_LANG + 'SELECT.ORDER_BY' | translate }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Products grid -->
+  <div class="products-table ka-card">
+    <div
+      *ngIf="primaryFilter"
+      [ngClass]="{
+        promos: primaryFilter === ProductTypes.PACK,
+        suggested: primaryFilter === ProductTypes.SUGGESTED,
+        portfolio: primaryFilter === ProductTypes.UNIT
+      }"
+      class="product-list-body scroll-grey"
+      infiniteScroll
+      [infiniteScrollDistance]="4"
+      [infiniteScrollThrottle]="50"
+      [scrollWindow]="false"
+      (scrolled)="getMoreProductsScroll()"
+      #infiniteContainer
+    >
+      <p *ngIf="primaryFilter === ProductTypes.SUGGESTED" class="title-main">{{ 'NEW_ORDER.SUGGESTED_PRODUCTS.TITLE' | translate }}</p>
+      <p *ngIf="primaryFilter === ProductTypes.PACK" class="title-main">{{ 'NEW_ORDER.SUGGESTED_PRODUCTS.PROMOS' | translate }}</p>
+      <p *ngIf="primaryFilter === ProductTypes.UNIT" class="title-main">{{ 'NEW_ORDER.SUGGESTED_PRODUCTS.PRODUCTS' | translate }}</p>
+      <div class="row" *ngIf="!viewGrid">
+        <div *ngFor="let item of products; index as i" class="col-12">
+          <app-ka-simple-product *ngIf="primaryFilter !== ProductTypes.PACK" [product]="item"></app-ka-simple-product>
+          <app-discount-product-card *ngIf="primaryFilter === ProductTypes.PACK" [style]="'ROW'" [discount]="item"> </app-discount-product-card>
+        </div>
+      </div>
+      <div class="row" *ngIf="viewGrid">
+        <div *ngFor="let item of products; index as i" class="col-12 col-md-12 col-lg-6 col-xl-4 col-xxl-3 mb-3 mb-lg-5">
+          <app-ka-suggested-product *ngIf="primaryFilter !== ProductTypes.PACK" [product]="item"></app-ka-suggested-product>
+          <app-discount-product-card *ngIf="primaryFilter === ProductTypes.PACK" [style]="'GRID'" [discount]="item"> </app-discount-product-card>
+        </div>
+      </div>
+      <div class="row no-results" *ngIf="products?.length === 0">
+        <div class="col-12 h-100 d-flex flex-column align-items-center justify-content-center px-5">
+          <svg class="mb-3"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-search" /></svg>
+          <p>No encontramos resultados para tu búsqueda.</p>
+        </div>
+      </div>
+    </div>
+    <div class="product-list-footer row py-3 add-all" *ngIf="primaryFilter === ProductTypes.SUGGESTED">
+      <div class="col-4 flex-row align-items-center d-none d-lg-none">
+        <span class="mr-4"
+          >{{ 'NEW_ORDER.RIGHT_SIDEBAR.SAVING' | translate }} <strong>{{ cart.saving | kaCurrency }}</strong></span
+        >
+        <span class="ml-4"
+          >Pagas <strong>{{ cart.totalPrice | kaCurrency }}</strong></span
+        >
+      </div>
+      <div class="col-6 col-lg-5 d-none flex-row align-items-center justify-content-center">
+        <button
+          id="agregar-todos-a-mi-pedido"
+          class="btn-square d-none d-md-flex justify-content-center"
+          *ngIf="primaryFilter === ProductTypes.SUGGESTED"
+          (click)="addAllProductsToCart()"
+        >
+          {{ 'NEW_ORDER.SUGGESTED_PRODUCTS.BUTTON' | translate }}
+        </button>
+        <button
+          id="agregar-todos-a-mi-pedido"
+          class="btn-square d-flex d-md-none justify-content-center"
+          *ngIf="primaryFilter === ProductTypes.SUGGESTED"
+          (click)="addAllProductsToCart()"
+        >
+          Agregar todos
+        </button>
+      </div>
+      <div class="col-12 col-lg-12 d-flex justify-content-end">
+        <button
+          id="saltar"
+          class="btn-chevron p-0 d-flex justify-content-end"
+          *ngIf="primaryFilter === ProductTypes.SUGGESTED"
+          (click)="filterBy(ProductTypes.PACK)"
+        >
+          Saltar
+          <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-chevron-right" /></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

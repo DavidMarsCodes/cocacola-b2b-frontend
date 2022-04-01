@@ -1,0 +1,13 @@
+@import 'styles';
+@import 'variables';
+@import './../../new-order.component.scss';
+
+section {
+  width: 100%;
+  margin: 1rem 0;
+  padding: 2.5rem 0;
+}
+
+app-ka-my-order-widget {
+  cursor: pointer;
+}

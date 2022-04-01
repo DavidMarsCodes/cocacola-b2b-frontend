@@ -1,0 +1,16 @@
+@import 'variables';
+
+.clock-image {
+  svg {
+    color: $red;
+    width: 7rem;
+    height: 7rem;
+  }
+}
+.title {
+  font-family: $font-bold;
+}
+.warn {
+  font-family: $font-regular;
+  font-size: 1.4rem;
+}

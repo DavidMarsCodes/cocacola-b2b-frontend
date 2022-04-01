@@ -1,0 +1,172 @@
+<div class="card">
+  <p class="title">{{ ROOT + 'TITLE' | translate }}</p>
+  <div *ngIf="orders.length" class="d-none toolbar">
+    <div class="input">
+      <svg class="mr-2"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-search" /></svg>
+      <input type="text" name="search" id="search" />
+    </div>
+    <select>
+      <option selected disabled>{{ ROOT + 'SELECT_DATE' | translate }}</option>
+    </select>
+    <select class="d-none d-lg-block">
+      <option selected disabled>{{ ROOT + 'SELECT_STATUS' | translate }}</option>
+    </select>
+  </div>
+  <div *ngIf="hasNewOrders" class="red-alert">
+    <div>
+      <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-alert-circle" /></svg>
+    </div>
+    <span>
+      {{ ROOT + 'ALERT_1' | translate }} <strong>"{{ 'ORDER_STATUS.CREATED' | translate }}"</strong>{{ ROOT + 'ALERT_2' | translate }}
+    </span>
+  </div>
+  <div *ngIf="orders.length" class="mobile d-block d-lg-none">
+    <div class="order-item mb-3" *ngFor="let orderParent of orders">
+      <div
+        *ngFor="let order of orderParent.sapOrders; let i = index"
+        (click)="goOrderDetail(order)"
+        class="my-3"
+        id="{{ order.orderId }}-{{ order.status }}-{{ order.origin }}"
+      >
+        <div class="d-flex align-items-center justify-content-between">
+          <div *ngIf="i === 0" class="order-id">
+            <p class="h3 mb-0">{{ order.orderId ? 'B2B #' + order.orderId : order.sourceChannel }}</p>
+          </div>
+          <div class="order-detail text-center" *ngIf="order.orderId && i === 0" [title]="order.status">
+            {{ ROOT + 'ORDER_DETAIL' | translate }}
+            <svg class="ml-1">
+              <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-chevron-right" />
+            </svg>
+          </div>
+        </div>
+        <p *ngIf="order.erpOrderId" class="order-id">{{ ROOT + 'ORDER_ID' | translate }} {{ order.erpOrderId }}</p>
+        <div class="d-flex align-items-center">
+          <div class="status {{ order.status }}">{{ 'ORDER_STATUS.' + order.status | translate }}</div>
+        </div>
+        <p class="label">{{ ROOT + 'DATE_DELIVERY' | translate }} {{ order.deliveryDate | kaDate }}</p>
+        <p class="label mt-2">{{ ROOT + 'TOTAL_AMOUNT' | translate }} {{ order.amount | kaCurrency }}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="orders.length" class="desktop-table d-none d-lg-block">
+    <div>
+      <div class="header-table d-flex flex-row align-items-center justify-content-between">
+        <div>
+          {{ ROOT + 'TABLE.TITLE_1' | translate }}<br />
+          {{ ROOT + 'TABLE.TITLE_2' | translate }}
+        </div>
+        <div>{{ ROOT + 'TABLE.ORDER_NUMBER' | translate }}</div>
+        <div>{{ ROOT + 'TABLE.DATE_DELIVERY' | translate }}</div>
+        <div>{{ ROOT + 'TABLE.TOTAL_AMOUNT' | translate }}</div>
+        <div>{{ ROOT + 'TABLE.STATUS' | translate }}</div>
+      </div>
+      <ngb-accordion #acc="ngbAccordion">
+        <ngb-panel *ngFor="let orderParent of orders" class="panel-item mb-3">
+          <ng-template ngbPanelHeader>
+            <div
+              *ngFor="let order of orderParent.sapOrders; let i = index"
+              class="content d-flex flex-row align-items-center justify-content-between bg-white border-0"
+            >
+              <div class="order-id">
+                <div *ngIf="i === 0" class="mb-0" id="{{ order.orderId }}-{{ order.status }}-{{ order.origin }}">
+                  <ng-container *ngIf="order.orderId">
+                    <a *ngIf="order.sourceChannel == 'KOBOSS'" (click)="goOrderDetail(order)" class="blue-link">{{
+                      order.sourceChannel + ' #' + order.orderId
+                    }}</a>
+                    <a *ngIf="order.sourceChannel != 'KOBOSS'" (click)="goOrderDetail(order)" class="blue-link">{{ 'B2B #' + order.orderId }}</a>
+                    <a (click)="goOrderDetail(order)" class="dark-link mt-1">
+                      <strong>{{ ROOT + 'GO_ORDER' | translate }}</strong>
+                      <svg>
+                        <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-chevron-right" />
+                      </svg>
+                    </a>
+                  </ng-container>
+                  <ng-container *ngIf="!order.orderId">
+                    <strong class="src-channel">{{ order.sourceChannel }}</strong>
+                  </ng-container>
+                </div>
+              </div>
+              <div>
+                {{ order.erpOrderId }}
+              </div>
+              <!-- <div *ngIf="!order.sapOrders">
+                {{ order.erpOrderId }}
+              </div>
+              <div *ngIf="order.sapOrders">
+                Pedidos asociados
+                <button class="arrow" ngbPanelToggle>
+                  <svg>
+                    <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-chevron-down" />
+                  </svg>
+                </button>
+              </div> -->
+              <div>{{ order.deliveryDate | kaDate }}</div>
+              <div>{{ order.amount | kaCurrency }}</div>
+              <div>
+                <div class="status {{ order.status }} p-0">
+                  {{ 'ORDER_STATUS.' + order.status | translate: { Default: order.status } }}
+                  <div
+                    class="reason"
+                    *ngIf="isErrorStatus(order.status)"
+                    [ngbTooltip]="order.reason"
+                    placement="top"
+                    container="body"
+                    tooltipClass="custom-tooltip"
+                  >
+                    <span class="reason-icon">
+                      <svg>
+                        <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-alert-circle" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="invoice text-center" [id]="'factura-' + order.status">
+                <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-file-download" /></svg>
+              </div> -->
+              <!-- <div class="last {{ order.status }}" (click)="goOrderDetail(order)" [title]="order.status">
+                <ng-container *ngIf="order.origin === 'B2B'">
+                  Ver detalle
+                  <svg>
+                    <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-chevron-right" />
+                  </svg>
+                </ng-container>
+              </div> -->
+            </div>
+          </ng-template>
+          <!-- <ng-template ngbPanelContent>
+            <div *ngFor="let sapOrder of order.sapOrders" class="content d-flex flex-row align-items-center justify-content-between bg-white border-0">
+              <div></div>
+              <div>
+                <p class="mb-1">{{ sapOrder.erpOrderId }}</p>
+              </div>
+              <div>{{ sapOrder.deliveryDate | kaDate }}</div>
+              <div>{{ sapOrder.amount | kaCurrency }}</div>
+              <div>
+                <div class="status {{ sapOrder.status }} p-0">
+                  {{ 'ORDER_STATUS.' + sapOrder.status | translate: { Default: sapOrder.status } }}
+                  <div
+                    class="reason"
+                    *ngIf="isErrorStatus(order.status)"
+                    [ngbTooltip]="sapOrder.reason"
+                    placement="top"
+                    container="body"
+                    tooltipClass="custom-tooltip"
+                  >
+                    <span class="reason-icon">
+                      <svg>
+                        <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-alert-circle" />
+                      </svg>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div></div>
+            </div>
+          </ng-template> -->
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+  </div>
+  <div *ngIf="!orders.length" class="orders-not-found">{{ ROOT + 'ORDER_NOT_FOUND' | translate }}</div>
+</div>

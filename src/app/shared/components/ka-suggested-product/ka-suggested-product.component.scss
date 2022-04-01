@@ -1,0 +1,76 @@
+@import 'variables';
+.card {
+  border: 1px solid $grey;
+  box-sizing: border-box;
+  border-radius: 9px;
+  height: 100%;
+  .image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9px 9px 0 0;
+    &-product {
+      width: 19rem;
+      height: 19rem;
+    }
+    @media (min-width: $lg) and (max-width: $xl) {
+      &-product {
+        width: 14rem;
+        height: 14rem;
+      }
+    }
+    .info {
+      top: 5px;
+      left: 5px;
+      position: absolute;
+    }
+  }
+  .product-name {
+    font-size: 1.5rem;
+    line-height: 1.6rem;
+  }
+  .suggested {
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    color: $green;
+    display: block;
+    word-break: break-all;
+    @media (max-width: $lg) {
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+  .product-price {
+    span {
+      font-size: 1.8rem;
+      line-height: 2.5rem;
+      font-weight: bold;
+    }
+    small {
+      text-decoration: line-through;
+      font-size: 1.4rem;
+      line-height: 1.2rem;
+    }
+  }
+  .product-quantity {
+    .quantity {
+      padding: 0 !important;
+    }
+    padding-bottom: 5px;
+    fa-icon {
+      cursor: pointer;
+      font-size: 1rem;
+      @media (max-width: $lg) {
+        font-size: 12px;
+      }
+    }
+    span {
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      @media (max-width: $lg) {
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+  }
+}

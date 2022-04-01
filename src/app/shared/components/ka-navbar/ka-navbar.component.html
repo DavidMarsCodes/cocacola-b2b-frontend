@@ -1,0 +1,59 @@
+<nav class="navbar navbar-expand-lg navbar-light w-100 align-items-center justify-content-between pt-0">
+  <div class="navbar-visible-container">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      id="navbar-menu-mobile"
+    >
+      <div class="navbar-toggler-icon d-flex align-items-center px-3">
+        <fa-icon [icon]="['fas', 'bars']"></fa-icon>
+      </div>
+    </button>
+
+    <img class="logoAndina d-block d-lg-none p-3" src="assets/media/logo_red.png" alt="" />
+
+    <div class="mobile d-block d-lg-none">
+      <!--<svg class="mr-3"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-search" /></svg>
+    <svg class="mr-3"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-bell" /></svg>-->
+    </div>
+  </div>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="desktop-nav w-100 d-flex flex-row justify-content-between">
+      <div></div>
+      <!--<form class="form-inline my-2 my-lg-0 w-75">
+        <mat-form-field appearance="outline" class="w-100">
+          <input class="pt-2 pl-3" matInput placeholder="{{ 'HOME.SEARCH' | translate }}" />
+          <span matPrefix>
+            <mat-icon aria-hidden="true" class="pt-2 pl-3">
+              <svg class="mr-2 search"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-search" /></svg>
+            </mat-icon>
+          </span>
+          <span matSuffix>
+            <mat-icon aria-hidden="true" class="pt-2">
+              <svg class="mr-2 trash"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-trash" /></svg>
+            </mat-icon>
+          </span>
+        </mat-form-field>
+      </form>-->
+      <ul class="navbar-nav d-none d-lg-flex">
+        <!--<li class="nav-item">
+          <a class="nav-link" href="#">
+            <svg class="mr-2"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-bell" /></svg>
+          </a>
+        </li>-->
+        <li class="nav-item dropdown pt-2 pr-3">
+          <app-ka-select-country [readonly]="true"></app-ka-select-country>
+        </li>
+      </ul>
+    </div>
+    <div class="d-block d-lg-none">
+      <app-ka-navbar-menu-mobile></app-ka-navbar-menu-mobile>
+    </div>
+  </div>
+</nav>

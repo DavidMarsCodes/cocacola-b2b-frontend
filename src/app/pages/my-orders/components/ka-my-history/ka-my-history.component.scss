@@ -1,0 +1,277 @@
+@import 'variables';
+
+.card {
+  padding: 3rem 4rem;
+  border-radius: 10px;
+  background-color: $white;
+  color: $dark;
+  @media (max-width: $lg) {
+    padding: 2rem;
+  }
+  .title {
+    font-size: 2rem;
+    line-height: 2.2rem;
+    font-family: $font-bold;
+    margin-bottom: 1.5rem;
+  }
+  .mobile {
+    .order-id {
+      font-family: $font-bold;
+      font-size: 1.4rem;
+    }
+    .label {
+      font-family: $font-medium !important;
+      font-size: 1.3rem;
+      line-height: 1.3rem;
+    }
+    .order-item {
+      // padding: 1rem 1.5rem 1.5rem 1.5rem;
+      padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+      border: 1px solid #eee;
+      border-radius: 10px;
+    }
+    .order-detail {
+      font-family: $font-bold;
+      font-size: 1.3rem;
+    }
+    .status {
+      max-width: none !important;
+      min-width: 0 !important;
+      padding: 0.3rem 0 0.6rem 0;
+      font-size: 1.4rem;
+    }
+    svg {
+      width: 2.5rem;
+      color: $red;
+    }
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-bottom: 1.5rem;
+    .input {
+      display: flex;
+      align-items: center;
+      width: 30%;
+      svg {
+        width: 2rem;
+        margin-left: 10px;
+        color: $dark-grey;
+      }
+    }
+    select {
+      color: #acabab;
+    }
+    input,
+    .input,
+    select {
+      background: $light-grey;
+      border-radius: 3px;
+      border: none;
+      outline: none;
+      height: 28px;
+      font-size: 1.4rem;
+      line-height: 1.7rem;
+      margin-right: 3rem;
+      option:disabled {
+        color: #acabab;
+      }
+      @media (max-width: $lg) {
+        width: 50%;
+      }
+    }
+  }
+  .desktop-table {
+    .header-table {
+      padding: 1.5rem;
+      div {
+        font-size: 1.4rem;
+        line-height: 1.7rem;
+        font-family: $font-bold;
+        width: 14.5%;
+      }
+    }
+    ::ng-deep {
+      .card {
+        margin-bottom: 1.5rem;
+        // padding: 1.5rem;
+        padding: 1rem 1.5rem;
+        border: 1px solid $grey;
+        border-radius: 10px;
+        .content {
+          min-height: 35px;
+          height: 5.1rem;
+        }
+        .card-header {
+          padding: 0;
+          border-bottom: none;
+          .content > div {
+            width: 14%;
+            font-size: 1.4rem;
+            line-height: 1.7rem;
+          }
+          .order-id {
+            a {
+              cursor: pointer;
+              display: block;
+            }
+            .blue-link,
+            .src-channel {
+              font-size: 1.6rem;
+              height: auto;
+              font-family: $font-bold;
+            }
+            svg {
+              width: 2rem;
+              height: 2rem;
+              color: $red;
+            }
+          }
+          // .arrow {
+          //   border: none;
+          //   background-color: transparent;
+          //   &:focus {
+          //     outline: none;
+          //   }
+          //   svg {
+          //     color: $red;
+          //     width: 1.5rem;
+          //   }
+          // }
+          .status {
+            padding: 0 !important;
+            text-align: left !important;
+            .reason {
+              display: inline;
+              position: relative;
+              bottom: 2px;
+              margin-left: 2rem;
+              &-icon {
+                svg {
+                  width: 2.5rem;
+                  height: 2.5rem;
+                  color: $red;
+                }
+              }
+            }
+          }
+          .invoice {
+            svg {
+              width: 2rem;
+            }
+          }
+          .last {
+            cursor: pointer;
+            svg {
+              width: 1.5rem;
+              color: $red;
+            }
+          }
+        }
+        // .card-body {
+        //   padding: 1.25rem 0 0 0;
+        //   .content {
+        //     &:not(:last-child) {
+        //       margin-bottom: 1.25rem;
+        //     }
+        //     .invoice {
+        //       svg {
+        //         width: 2rem;
+        //       }
+        //     }
+        //     .status {
+        //       text-align: left !important;
+        //     }
+        //     .reason {
+        //       display: inline;
+        //       position: relative;
+        //       bottom: 2px;
+        //       margin-left: 2rem;
+        //       &-icon {
+        //         svg {
+        //           width: 2.5rem;
+        //           height: 2.5rem;
+        //           color: $red;
+        //         }
+        //       }
+        //     }
+        //     div {
+        //       width: 14%;
+        //       font-size: 1.4rem;
+        //       line-height: 1.7rem;
+        //     }
+        //   }
+        // }
+      }
+    }
+  }
+  // .table {
+  //   border-collapse: separate;
+  //   border-spacing: 0 1em;
+  //   th {
+  //     border: none;
+  //     font-size: 1.4rem;
+  //     line-height: 1.7rem;
+  //     vertical-align: middle;
+  //   }
+  //   tbody {
+  //     tr {
+  //       background: $white;
+  //       border: 1px solid $light-grey;
+  //       box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+  //       border-radius: 1rem;
+  //     }
+  //     td {
+  //       padding: 2.5rem;
+  //       font-size: 1.2rem;
+  //       line-height: 1.4rem;
+  //       color: $dark;
+  //       vertical-align: middle;
+  //       @media (max-width: $lg) {
+  //         padding: 2rem;
+  //         padding-bottom: 3.5rem;
+  //       }
+  //       &.last {
+  //         color: $blue;
+  //         cursor: pointer;
+  //         outline: none;
+  //         @media (max-width: $lg) {
+  //           padding: 2rem 0;
+  //         }
+  //         &.actions {
+  //           svg {
+  //             color: $dark-grey;
+  //             width: 20px;
+  //           }
+  //         }
+  //         &:focus {
+  //           outline: none;
+  //         }
+  //       }
+  //       svg {
+  //         color: $red;
+  //         fill: $red;
+  //         width: 2rem;
+  //         margin-left: 2rem;
+  //         display: inline-block;
+  //         @media (max-width: $lg) {
+  //           margin-left: 0;
+  //         }
+  //       }
+  //       &.invoice svg {
+  //         color: $black;
+  //         cursor: pointer;
+  //       }
+  //     }
+  //   }
+  // }
+}
+
+.orders-not-found {
+  font-size: 2rem;
+  text-align: center;
+  margin: 5rem;
+  font-family: $font-bold;
+}

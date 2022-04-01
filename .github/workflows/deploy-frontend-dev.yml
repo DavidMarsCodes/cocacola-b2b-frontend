@@ -1,0 +1,53 @@
+name: deploy-frontend-dev
+
+on:
+  push:
+    branches:
+      - develop
+    paths-ignore:
+      - '.github/**'
+
+jobs:
+  app:
+    name: '[Build & Publish][DEV] Frontend'
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install AWS cli
+        run: |
+          /usr/local/bin/aws --version
+
+      - name: Install NodeJs dependencies
+        run: |
+          npm i -g @angular/cli
+          npm install
+
+      - name: DEV - Build
+        run: |
+          npm run build
+
+      - name: DEV - Upload to s3
+        run: |
+          cd dist/cocacola-andina
+          aws s3 sync . s3://b2b-carrito-frontend-dev/ --delete --region us-east-1 --debug
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+
+      - name: DEV - Refresh Cloudfront
+        run: |
+          aws cloudfront create-invalidation --distribution-id=E2UX2DVRLHKUHQ --paths '/*' --debug
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}
+
+      - name: DEV - Fix Permission TyC
+        run: |
+          aws s3 ls s3://b2b-carrito-frontend-dev/assets/docs/tyc/ --recursive | awk '{cmd="aws s3api put-object-acl --acl public-read --bucket b2b-carrito-frontend-dev --key "$4; system(cmd)}'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.DEV_AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_AWS_SECRET_ACCESS_KEY }}

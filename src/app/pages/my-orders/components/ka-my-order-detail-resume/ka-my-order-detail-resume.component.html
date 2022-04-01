@@ -1,0 +1,22 @@
+<div class="order-details">
+  <p>
+    <span>{{ ROOT + 'SUBTOTAL_NO_TAXES' | translate }}</span>
+    <span>{{ orderTotals.listPrice | kaCurrency }}</span>
+  </p>
+  <p>
+    <span>{{ ROOT + 'SAVING' | translate }}</span>
+    <span>{{ orderTotals.discounts ? '-' : '' }} {{ orderTotals.discounts | kaCurrency }}</span>
+  </p>
+  <!--<p *ngIf="user.countryId !== CountryCodes.CHILE">
+    <span>{{ ROOT + 'DELIVERY' | translate }}</span>
+    <span>$0</span>
+  </p>-->
+  <p>
+    <span>{{ ROOT + 'TAXES' | translate }}</span>
+    <span>{{ orderTotals.finalTaxes || 0 | kaCurrency }}</span>
+  </p>
+  <p class="total">
+    <span>{{ ROOT + 'TOTAL' | translate }}</span>
+    <span>{{ orderTotals.finalPrice | kaCurrency }}</span>
+  </p>
+</div>

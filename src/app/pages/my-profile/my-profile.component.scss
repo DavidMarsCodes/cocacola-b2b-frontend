@@ -1,0 +1,149 @@
+@import 'variables';
+
+:host {
+  width: 100%;
+}
+
+.home {
+  height: calc(100vh - 58px);
+  background-color: $light-grey;
+  padding: 3rem 2rem;
+  @media (max-width: $lg) {
+    height: calc(100vh - 47px);
+    background-color: $light-grey;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    height: 100vh;
+  }
+  .title {
+    font-family: $font-bold;
+    font-size: 2.2rem;
+    line-height: 2.4rem;
+    color: $dark;
+    margin-bottom: 0;
+    @media (max-width: $lg) {
+      font-size: 18px;
+      line-height: 20px;
+    }
+  }
+  .link {
+    svg {
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+  }
+  .name-container {
+    margin-bottom: 5rem;
+    @media (max-width: $lg) {
+      margin-bottom: 20px;
+    }
+  }
+  .profile {
+    img {
+      border-radius: 100%;
+      max-width: 10rem;
+    }
+    .name {
+      font-family: $font-bold;
+      margin-left: 3rem;
+      font-size: 2.2rem;
+      line-height: 2.4rem;
+      margin-bottom: 0;
+    }
+  }
+  .card {
+    @media (max-width: $lg) {
+      padding: 1.5rem !important;
+    }
+    .title {
+      margin-bottom: 3rem;
+      @media (max-width: $lg) {
+        margin-bottom: 1.5rem;
+      }
+    }
+    .link {
+      font-size: 1.8rem;
+      line-height: 2.2rem;
+      color: $blue;
+      margin-bottom: 0;
+      cursor: pointer;
+      &:active {
+        outline: none;
+      }
+    }
+    .item {
+      border-top: 1px solid #dddddd;
+      padding: 15px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &:last-child {
+        border-bottom: 1px solid #ddd;
+      }
+      p {
+        font-size: 16px;
+        line-height: 19px;
+      }
+      .more-actions {
+        width: 10%;
+        text-align: center;
+      }
+    }
+    .dropup {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      .dropdown-menu {
+        padding: 2rem;
+      }
+      .dropdown-item {
+        font-size: 1.8rem;
+        line-height: 2.2rem;
+        padding: 1.3rem;
+        &:not(:last-child) {
+          border-bottom: 1px solid $dark-grey;
+        }
+        &:active {
+          background-color: transparent;
+          outline: none;
+          color: $dark;
+        }
+      }
+    }
+    select,
+    option {
+      background-color: transparent;
+      border: none;
+      outline: none;
+    }
+    tr {
+      th {
+        font-size: 1.8rem;
+        line-height: 2.2rem;
+        font-family: $font-bold;
+        padding: 1.2rem;
+      }
+      td {
+        font-size: 1.8rem;
+        line-height: 2.2rem;
+        border-top: 1px solid #dddddd;
+        padding: 1.5rem;
+        svg {
+          width: 2rem;
+          height: 2rem;
+        }
+        @media (max-width: $lg) {
+          font-size: 12px;
+          line-height: 14px;
+          width: 100%;
+        }
+      }
+      &:last-child {
+        td {
+          border-bottom: 1px solid #ddd;
+        }
+      }
+    }
+  }
+}

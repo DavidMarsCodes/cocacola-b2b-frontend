@@ -1,0 +1,39 @@
+@import 'variables';
+
+:host {
+  width: 100%;
+}
+
+.home {
+  height: calc(100vh - 75px);
+  width: 100%;
+  background-color: $light-grey;
+  padding: 3rem 2rem;
+  @media (max-width: $lg) {
+    height: calc(100vh - 47px);
+    background-color: $light-grey;
+  }
+  @media (max-width: $lg) {
+    padding: 2rem;
+  }
+  @supports (-webkit-touch-callout: none) {
+    height: -webkit-fill-available;
+  }
+  .title {
+    font-size: 2rem;
+    line-height: 2.4rem;
+    color: $dark;
+  }
+}
+.account-status {
+  height: 100%;
+  width: 100%;
+  padding: 8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  @media (max-width: $lg) {
+    flex-direction: column;
+  }
+}

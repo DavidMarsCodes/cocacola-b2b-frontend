@@ -1,0 +1,47 @@
+@import './../../new-order.component.scss';
+@import 'variables';
+
+p {
+  font-family: $font-bold;
+}
+.delivery {
+  width: 100%;
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 4rem;
+  .tabler-truck {
+    width: 11.5rem;
+    height: 11.5rem;
+  }
+}
+.delivery-message {
+  font-size: 1.5rem;
+  line-height: 17px;
+  width: 50%;
+  @media (max-width: $md) {
+    width: 90%;
+  }
+}
+
+::ng-deep .mat-form-field-flex {
+  background-color: transparent !important;
+  // border-bottom: 2px solid $dark-grey;
+
+  input {
+    border-bottom: none !important;
+    // font-size: 2rem !important;
+  }
+  mat-datepicker-toggle {
+    button {
+      height: 3.5rem !important;
+      width: 3.5rem !important;
+    }
+    mat-icon {
+      font-size: 3rem !important;
+      color: $dark !important;
+      position: relative;
+      right: 3px;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+<div class="card">
+  <p class="title">¡Recomendados de la semana!</p>
+
+  <div *ngFor="let item of products">
+    <app-ka-simple-product [product]="item" [page]="'home'"></app-ka-simple-product>
+  </div>
+
+  <div class="mt-4 d-flex w-100 align-items-center justify-content-center">
+    <button [routerLink]="'/main/nuevo-pedido/2/'" class="w-50 btn-black" id="home-go-suggested-products">Ir a mis pedidos sugeridos</button>
+  </div>
+</div>

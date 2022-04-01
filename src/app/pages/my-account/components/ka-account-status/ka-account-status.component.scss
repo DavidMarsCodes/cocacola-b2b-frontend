@@ -1,0 +1,23 @@
+@import "variables";
+
+.account-status {
+    text-align: center;
+
+    svg {
+        margin-bottom: 3rem;
+        color: $yellow;
+        width: 8.5rem;
+        height: 8rem;
+    }
+
+    p {
+        font-size: 1.8rem;
+        line-height: 2rem;
+        &.title {
+            font-family: $font-bold;
+        }
+        &.subtitle {
+            margin-bottom: 3rem;
+        }
+    }
+}

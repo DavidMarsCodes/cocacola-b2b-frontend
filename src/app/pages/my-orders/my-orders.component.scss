@@ -1,0 +1,53 @@
+@import 'variables';
+
+:host {
+  width: 100%;
+}
+
+.nav {
+  background-color: $white;
+  ::ng-deep {
+    .navbar {
+      background-color: $white;
+    }
+  }
+}
+.home {
+  height: calc(100vh - 35px);
+  background-color: $light-grey;
+  padding: 0 3rem 2rem;
+  @media (max-width: $lg) {
+    height: calc(100vh - 47px);
+    background-color: $light-grey;
+    padding: 1rem;
+  }
+
+  @supports (-webkit-touch-callout: none) {
+    overflow-x: hidden;
+    height: -webkit-fill-available;
+    min-height: -webkit-fill-available;
+    max-height: -webkit-fill-available;
+  }
+  .title {
+    font-size: 2rem;
+    line-height: 2.4rem;
+    color: $dark;
+  }
+  select {
+    font-weight: bold;
+    border: none;
+    background-color: $light-grey;
+    font-size: 2rem;
+    line-height: 2.2rem;
+    font-family: $font-bold;
+    margin-left: -4px;
+    @media (max-width: $lg) {
+      max-width: 100%;
+      width: 100%;
+      color: $dark;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}

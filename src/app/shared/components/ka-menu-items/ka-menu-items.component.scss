@@ -1,0 +1,51 @@
+@import 'variables';
+
+.options {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1.5rem 0 0 0;
+  font-family: $font-regular;
+  list-style: none;
+  padding-inline-start: 0;
+  font-size: 1.8rem;
+  line-height: 2.2rem;
+  color: $dark;
+  width: 100%;
+  margin-bottom: 0;
+  font-weight: 800;
+  li {
+    cursor: pointer;
+    padding: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    @media (max-width: $lg) {
+      font-size: 1.6rem;
+      padding: 1.5rem;
+    }
+    @media (max-width: $xxl) {
+      font-size: 1.7rem;
+      padding: 1.5rem;
+    }
+    &.active {
+      background-color: $background-grey;
+      color: $red;
+    }
+    &.disabled {
+      cursor: default;
+      color: $dark-grey;
+      .icon-ka-sidebar {
+        color: $dark-grey;
+      }
+    }
+  }
+}
+
+.icon-ka-sidebar {
+  color: $red;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  vertical-align: bottom;
+}

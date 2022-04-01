@@ -1,0 +1,10 @@
+<div class="select-commerce d-flex flex-column justify-content-between align-items-center">
+  <p *ngIf="titleTranslate" class="label font-weight-bold">{{ titleTranslate | translate }}</p>
+  <div class="select-group">
+    <select class="px-0 w-100" *ngIf="visitDates" [ngModel]="selectedDate" (ngModelChange)="selectDate($event)">
+      <option *ngFor="let date of visitDates" [value]="date.visitDate">
+        {{ date.visitDate | kaDate }}
+      </option>
+    </select>
+  </div>
+</div>

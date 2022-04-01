@@ -1,0 +1,138 @@
+<div class="row m-0">
+  <div class="home col-12 col-lg-8 col-xl-9 scroll-grey">
+    <div class="col-12">
+      <div class="row">
+        <app-ka-navbar class="w-100"></app-ka-navbar>
+      </div>
+    </div>
+    <div class="col-12 pb-3">
+      <p class="hello mb-2">{{ 'HOME.HELLO' | translate }}</p>
+      <p class="hello-address">{{ 'HOME.CLIENT_SELECTED' | translate }} {{ selectedClient.street }} {{ selectedClient.doorNumber }}</p>
+    </div>
+    <div class="col-12 mb-4 carousel">
+      <app-ka-carousel></app-ka-carousel>
+    </div>
+
+    <div *ngIf="suggestedProducts?.length" class="col-12">
+      <div class="row">
+        <div class="col-12 d-flex flex-row justify-content-between align-items-center">
+          <div>
+            <p class="title d-none d-lg-flex mb-2">{{ 'HOME.HELP_ORDER' | translate }}</p>
+            <p class="subtitle">{{ 'HOME.SUGGESTED_PRODUCT_QUANTITY' | translate }}</p>
+          </div>
+          <p *ngIf="!selectedClient.hasLockOrder" routerLink="/main/nuevo-pedido/2/" class="link-button d-none d-lg-block" id="home-suggested-products">
+            {{ 'HOME.SUGGESTED_LIST' | translate }}
+            <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-chevron-right'" /></svg>
+          </p>
+        </div>
+      </div>
+      <div class="row d-none d-lg-flex">
+        <div *ngFor="let item of suggestedProducts" class="col-12 col-md-12 col-lg-3 mb-4">
+          <app-ka-suggested-product [product]="item" [page]="'home'"></app-ka-suggested-product>
+        </div>
+      </div>
+      <div class="row d-flex d-lg-none" *ngIf="homeStyle == 1">
+        <div class="col-12">
+          <owl-carousel-o [options]="customOptions2" class="w-100 mb-5">
+            <ng-container *ngFor="let item of suggestedProducts ? suggestedProducts.slice(0, 3) : []; index as i">
+              <ng-template carouselSlide>
+                <app-ka-suggested-product [product]="item" [page]="'home'"></app-ka-suggested-product>
+              </ng-template>
+            </ng-container>
+          </owl-carousel-o>
+        </div>
+      </div>
+      <div class="row d-flex d-lg-none mb-4" *ngIf="homeStyle == 2">
+        <div class="col-12">
+          <app-ka-week-bestsellers [products]="suggestedProducts"></app-ka-week-bestsellers>
+        </div>
+      </div>
+      <div class="row d-flex d-lg-none" *ngIf="homeStyle == 1">
+        <div class="col-12 d-flex align-items-center justify-content-end" id="home-suggested-products">
+          <p *ngIf="!selectedClient.hasLockOrder" routerLink="/main/nuevo-pedido/2/" class="link-button">
+            {{ 'HOME.SUGGESTED_LIST' | translate }}
+            <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-chevron-right'" /></svg>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="homeStyle == 1" class="col-12 mb-4" id="home-banner-packs">
+      <app-ka-packs-and-discounts class="w-100"></app-ka-packs-and-discounts>
+    </div>
+    <div class="col-12">
+      <div class="row widgets">
+        <div class="col-12 col-lg-6">
+          <div *ngIf="homeStyle == 1" class="row h-100">
+            <div class="col-12 col-md-12 col-lg-6 mb-4">
+              <app-ka-vertical-image-menu [image]="'calendar-event'" [title]="'Hoy te visita tu vendedor'"></app-ka-vertical-image-menu>
+            </div>
+            <div class="col-12 col-md-12 col-lg-6 mb-4" id="home-banner-repeat-order">
+              <app-ka-vertical-image-menu
+                [image]="'bucket'"
+                [title]="'HOME.REPEAT_ORDER' | translate"
+                [subtitle]="'Puedes agilizar tu compra y volver a realizar un pedido ya hecho.'"
+                [button]="true"
+                [buttonText]="'Ver mis pedidos'"
+                [routerLink]="'/main/mis-pedidos/'"
+              ></app-ka-vertical-image-menu>
+            </div>
+          </div>
+          <div *ngIf="homeStyle == 2" class="row h-100">
+            <div class="col-12 col-md-12 mb-4 h-100" id="home-banner-packs">
+              <app-ka-button-menu
+                [icon]="'discount'"
+                [title]="'Combos y descuentos'"
+                [subtitle]="'Ahorra y compra más'"
+                [button]="'Realizar pedido'"
+                [routerLinkRoute]="'/main/nuevo-pedido/2'"
+                [routerLinkQuery]="ProductTypes.PACK"
+              ></app-ka-button-menu>
+            </div>
+            <!-- <div class="col-12 col-md-12 mb-4" id="home-banner-repeat-order">
+             <app-ka-button-menu
+                [icon]="'bucket'"
+                [title]="'Repetir un pedido'"
+                [subtitle]="'Puedes agilizar tu compra y volver a realizar un pedido ya hecho.'"
+                [button]="'Ver mis pedidos'"
+                [alternative]="true"
+                [routerLink]=""
+                [message]="'Proximamente'"
+              ></app-ka-button-menu>
+            </div>-->
+          </div>
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="w-100 mb-4">
+            <app-ka-last-order></app-ka-last-order>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--<div class="col-12">
+      <div class="row align-items-stretch align-content-stretch">
+        <div class="col-12 col-md-12 mb-3" [ngClass]="{ 'col-lg-4': homeStyle == 2, 'd-none': homeStyle == 1 }">
+          <app-ka-image-menu
+            tooltipClass="custom-message"
+            [icon]="'calendar-event'"
+            [title]="'Hoy te visita tu vendedor'"
+            [responsive]="false"
+          ></app-ka-image-menu>
+        </div>
+        <div class="col-6 col-md-6 mb-3" [ngClass]="{ 'col-lg-4': homeStyle == 2, 'col-lg-3': homeStyle == 1 }">
+          <app-ka-image-menu [icon]="'map-pin'" [title]="'HOME.MY_STORES' | translate" [responsive]="false"></app-ka-image-menu>
+        </div>
+        <div class="col-6 col-md-6 mb-3" [ngClass]="{ 'col-lg-4': homeStyle == 2, 'col-lg-3': homeStyle == 1 }">
+          <app-ka-image-menu [icon]="'help'" [title]="'HOME.HELP' | translate" [responsive]="false"></app-ka-image-menu>
+        </div>
+        <div class="col-12 col-md-12 mb-3" [ngClass]="{ 'col-lg-12': homeStyle == 2, 'col-lg-6': homeStyle == 1 }">
+          <app-ka-image-menu [icon]="'virus'" [title]="'HOME.COVID.TITLE' | translate" [text]="'HOME.COVID.TEXT' | translate"></app-ka-image-menu>
+          <app-ka-rate-exp></app-ka-rate-exp>
+        </div>
+      </div>
+    </div>-->
+  </div>
+  <div class="d-none d-lg-block col-lg-4 col-xl-3 p-0">
+    <app-ka-right-sidebar></app-ka-right-sidebar>
+  </div>
+</div>

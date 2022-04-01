@@ -1,0 +1,120 @@
+@import 'variables';
+
+.card {
+  border: 1px solid $grey;
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  &.red {
+    background-color: $red;
+    .step.red {
+      fa-icon {
+        color: $dark-grey !important;
+      }
+    }
+  }
+  &.grey {
+    background-color: $dark-grey-bold;
+  }
+  @media (max-width: $lg) {
+    padding: 20px;
+  }
+  .title {
+    font-size: 1.9rem;
+    line-height: 2rem;
+    color: $white;
+    font-family: $font-bold;
+    @media (max-width: $lg) {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+  .subtitle {
+    font-size: 1.5rem;
+    line-height: 2.3rem;
+    color: $white;
+    font-family: $font-regular;
+    @media (max-width: $lg) {
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+  .step {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 3rem;
+    width: 25%;
+    fa-icon {
+      font-size: 25px;
+      line-height: 25px;
+      color: $grey;
+    }
+    &.green {
+      fa-icon {
+        color: $green;
+      }
+    }
+    &.red {
+      fa-icon {
+        color: $red;
+      }
+    }
+    small {
+      font-size: 1.4rem;
+      line-height: 1.2rem;
+      text-align: center;
+      color: $white;
+      @media (max-width: $lg) {
+        font-size: 10px;
+        line-height: 12px;
+      }
+    }
+  }
+
+  .total-quantity {
+    p {
+      font-size: 1.3rem;
+    }
+  }
+
+  p {
+    font-size: 1rem;
+    line-height: 1.1rem;
+    margin-bottom: 0;
+    font-family: $font-bold;
+    strong {
+      font-size: 14px;
+      line-height: 17px;
+      color: $white;
+      @media (max-width: $lg) {
+        font-size: 14px;
+        line-height: 17px;
+      }
+    }
+    @media (max-width: $lg) {
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
+
+  button {
+    margin-bottom: 0;
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+    text-align: center;
+    background-color: $white;
+    color: $dark;
+    text-decoration: none;
+    border: none;
+    border-radius: 3px;
+    font-family: $font-bold;
+    @media (max-width: $lg) {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+}

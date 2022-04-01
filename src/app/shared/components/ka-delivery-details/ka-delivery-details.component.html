@@ -1,0 +1,27 @@
+<div class="delivery-details card-sidebar">
+  <h3 class="title-h3">Información</h3>
+  <div *ngIf="!showFrozenDates">
+    <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-calendar-event" /></svg>
+    <span>{{ ROOT_LANG + 'DELIVERY_DATE' | translate }}: {{ cart.visitDate | kaDate }}</span>
+  </div>
+  <div *ngIf="showFrozenDates">
+    <svg class="icon-delivery-date"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-calendar-event" /></svg>
+    <span class="icon-delivery-date">{{ ROOT_LANG + 'DELIVERY_DATE' | translate }}</span>
+    <span class="span-delivery-date">{{ ROOT_LANG + 'DELIVERY_DATE_NOT_FROZEN' | translate }}: {{ cart.visitDate | kaDate }}</span>
+    <span class="span-delivery-date">{{ ROOT_LANG + 'DELIVERY_DATE_FROZEN' | translate }}: {{ cart.frozenVisitDate | kaDate }}</span>
+  </div>
+  <div>
+    <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-map-pin" /></svg>
+    <span>Dirección de entrega: {{ client.street }} {{ client.doorNumber }}</span>
+  </div>
+  <!--<div>
+    <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-box" /></svg>
+    <span>{{ ROOT_LANG + 'QUANTITY' | translate }}</span>
+  </div>-->
+  <div *ngIf="step === 5">
+    <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-credit-card" /></svg>
+    <span>{{ ROOT_LANG + 'PAYMENT_METHOD.LABEL' | translate }}: </span>
+    <span>Efectivo</span>
+    <!--<span>{{ ROOT_LANG + 'PAYMENT_METHOD.CHEQUE' | translate }}</span>-->
+  </div>
+</div>

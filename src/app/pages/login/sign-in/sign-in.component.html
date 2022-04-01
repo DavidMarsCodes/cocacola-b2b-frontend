@@ -1,0 +1,155 @@
+<app-ka-login-navbar (goStepBack)="goStepBack()"></app-ka-login-navbar>
+
+<div *ngIf="currentStep" class="container d-flex justify-content-center align-items-center flex-wrap">
+  <div class="header w-100 text-left">
+    <h1 class="title-h1 w-100">{{ currentStep.title }}</h1>
+    <p *ngIf="currentStep.subtitle" class="subtitle w-100">{{ currentStep.subtitle }}</p>
+  </div>
+
+  <div class="body w-100">
+    <form [formGroup]="loginForm" [ngClass]="{ 'service-error': serviceError }">
+      <!-- <div *ngFor="let button of currentStep.bodyButtons">
+        <button (click)="actionStep(button)" type="button" class="btn btn-light btn-block mt-3 {{ button.style }}" [id]="button.id || ''">
+          {{ button.label }}
+        </button>
+      </div> -->
+
+      <div *ngIf="currentStep.inputType === LoginInputTypes.EMAIL" class="form-group">
+        <input
+          [formControlName]="currentStep.stepName"
+          name="username"
+          autocomplete="username"
+          type="email"
+          class="form-control"
+          maxlength="48"
+          [placeholder]="ROOT_LANG + 'USER_EMAIL.PLACEHOLDER' | translate"
+        />
+        <div *ngIf="loginForm.controls[currentStep.stepName].touched && !loginForm.controls[currentStep.stepName].valid" class="invalid-feedback d-block">
+          <span *ngIf="loginForm.controls[currentStep.stepName].errors.pattern">{{ 'ERRORS.EMAIL_FORMAT_ERROR' | translate }}</span>
+        </div>
+        <div *ngIf="serviceError" class="invalid-feedback d-block">
+          <span>{{ serviceErrorMsg }}</span>
+        </div>
+      </div>
+
+      <!-- <div *ngIf="currentStep.inputType === LoginInputTypes.PHONE" class="input-group">
+        <div ngbDropdown class="mb-3 phone-code">
+          <button class="phone-code-button btn btn-secondary" id="phone-code-dropdown" ngbDropdownToggle>
+            <span class="phone-code-dot"></span><span class="align-middle ml-2">{{ phoneCodeSelected }}</span>
+          </button>
+          <div class="phone-code-dropdown" ngbDropdownMenu aria-labelledby="phone-code-dropdown">
+            <button (click)="phoneCodeSelected = phoneCode" *ngFor="let phoneCode of phonesCodes" class="dropdown-item" ngbDropdownItem>
+              <span class="phone-code-dot"></span><span class="align-middle ml-2">{{ phoneCode }}</span>
+            </button>
+          </div>
+        </div>
+        <input
+          [formControlName]="currentStep.stepName"
+          name="username"
+          type="number"
+          autocomplete="username"
+          class="form-control email-help"
+          [placeholder]="ROOT_LANG + 'USER_PHONE.PLACEHOLDER' | translate"
+          onkeydown="return event.keyCode !== 69"
+        />
+        <div *ngIf="serviceError" class="invalid-feedback d-block">
+          <span>{{ 'ERRORS.PHONE_NOT_FOUND' | translate }}</span>
+        </div>
+      </div> -->
+
+      <div *ngIf="currentStep.inputType === LoginInputTypes.CODE" class="form-group">
+        <app-ka-splitted-input *ngIf="currentStep.stepName === LoginSteps.RESTORE_EMAIL_CODE" [code]="restoreCode" (valueUpdated)="restoreCode = $event">
+        </app-ka-splitted-input>
+        <app-ka-splitted-input *ngIf="currentStep.stepName === LoginSteps.CONFIRM_CODE" [code]="confirmCode" (valueUpdated)="confirmCode = $event">
+        </app-ka-splitted-input>
+        <div *ngIf="serviceError" class="invalid-feedback d-block text-center">
+          <span>{{ serviceErrorMsg }}</span>
+        </div>
+        <!-- <input #codeinput formControlName="code" type="text" class="form-control code" maxlength="6" (input)="onInput($event)"/> -->
+      </div>
+
+      <div *ngIf="currentStep.inputType === LoginInputTypes.PASSWORD">
+        <div class="email-container" *ngIf="currentStep.stepName === LoginSteps.PASSWORD">
+          <input
+            formControlName="email"
+            name="username"
+            autocomplete="username"
+            type="email"
+            class="form-control"
+            maxlength="48"
+            [placeholder]="ROOT_LANG + 'ENTER_PWD.EMAIL_PH' | translate"
+          />
+          <div *ngIf="loginForm.controls.email.touched && !loginForm.controls.email.valid" class="invalid-feedback d-block">
+            <span *ngIf="loginForm.controls.email.errors.required">{{ 'ERRORS.2009' | translate }}</span>
+            <span *ngIf="loginForm.controls.email.errors.pattern">{{ 'ERRORS.EMAIL_FORMAT_ERROR' | translate }}</span>
+          </div>
+        </div>
+        <div class="pwd-container">
+          <div class="d-flex">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              name="password"
+              autocomplete="current-password"
+              class="form-control"
+              maxlength="16"
+              [placeholder]="ROOT_LANG + (currentStep.stepName === LoginSteps.PASSWORD ? 'ENTER_PWD' : 'RESTORE_PWD') + '.PLACEHOLDER' | translate"
+            />
+            <svg
+              id="show-pwd"
+              *ngIf="!showPassword"
+              class="toggle-pwd"
+              [ngClass]="{ error: loginForm.controls.password.touched && !loginForm.controls.password.valid }"
+              (click)="showPassword = true"
+              placement="top"
+              [ngbTooltip]="ROOT_LANG + 'ENTER_PWD.SHOW_PWD' | translate"
+              tooltipClass="custom-tooltip"
+              [disableTooltip]="isMobile()"
+            >
+              <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-eye" />
+            </svg>
+            <svg
+              id="hide-pwd"
+              *ngIf="showPassword"
+              class="toggle-pwd"
+              [ngClass]="{ error: loginForm.controls.password.touched && !loginForm.controls.password.valid }"
+              (click)="showPassword = false"
+              placement="top"
+              [ngbTooltip]="ROOT_LANG + 'ENTER_PWD.HIDE_PWD' | translate"
+              tooltipClass="custom-tooltip"
+              [disableTooltip]="isMobile()"
+            >
+              <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-eye-off" />
+            </svg>
+          </div>
+          <div *ngIf="loginForm.controls.password.touched && !loginForm.controls.password.valid" class="invalid-feedback d-block">
+            <span *ngIf="loginForm.controls.password.errors.required">{{ 'ERRORS.2003' | translate }}</span>
+            <span *ngIf="loginForm.controls.password.errors.pattern">{{ 'ERRORS.INVALID_PASSWORD' | translate }}</span>
+          </div>
+          <div *ngIf="serviceError" class="invalid-feedback d-block">
+            <span>{{ serviceErrorMsg }}</span>
+          </div>
+          <div *ngIf="currentStep.stepName === LoginSteps.PASSWORD" class="mt-3 text-right">
+            <a id="forgot-pwd" (click)="actionStep({ action: LoginSteps.RESTORE_EMAIL, actionType: 'STEP' })" class="blue-link">
+              {{ ROOT_LANG + 'ENTER_PWD.FORGOT_PWD' | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="footer w-100 text-center">
+    <div *ngFor="let button of currentStep.footerButtons">
+      <button [class]="button.style" type="button" (click)="actionStep(button)" [id]="button.id || ''" [disabled]="!isTheStepValid(button)">
+        {{ button.label }}
+      </button>
+    </div>
+    <div *ngIf="currentStep.stepName === LoginSteps.PASSWORD" class="w-100 my-5">
+      <a routerLink="/sign-up" class="blue-link-bold text-center d-block" id="go-to-sign-up">{{ ROOT_LANG + 'ENTER_PWD.FOOTER' | translate }}</a>
+    </div>
+    <!-- <div class="d-flex justify-content-center mt-5">
+      <app-ka-dot-stepper [totalSteps]="3" [currentStep]="currentStep.stepNumber - 1"></app-ka-dot-stepper>
+    </div> -->
+  </div>
+</div>

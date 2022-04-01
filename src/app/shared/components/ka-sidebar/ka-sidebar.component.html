@@ -1,0 +1,35 @@
+<div class="container" [class]="isMobile ? 'mobile' : 'desktop ka-sidebar'">
+  <img class="logoAndina" src="assets/media/logo_red.png" alt="" />
+
+  <ul class="options">
+    <ng-template ngFor let-option [ngForOf]="sidebarOptions">
+      <li *ngIf="option.show" class="li-sidebar" [ngClass]="{ active: option.active, disabled: option.disabled }" (click)="optionSelected(option)">
+        <svg class="img-fluid mr-2 icon-ka-sidebar" stroke-width="3.25">
+          <use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-' + option.icon" />
+        </svg>
+        <span>{{ 'HOME.' + option.langKey | translate }}</span>
+      </li>
+    </ng-template>
+    <ng-container *ngIf="!isMobile">
+      <li [ngStyle]="{ visibility: isNewOrderSelected ? 'hidden' : 'visible' }" class="d-flex flex-column">
+        <app-ka-select-commerce class="w-100"></app-ka-select-commerce>
+      </li>
+      <li [ngStyle]="{ visibility: isNewOrderSelected ? 'hidden' : 'visible' }">
+        <app-ka-select-delivery-date [titleTranslate]="'HOME.MY_DELIVERY_DATES_SELECT'" class="w-100"></app-ka-select-delivery-date>
+      </li>
+      <li [ngStyle]="{ visibility: isNewOrderSelected || !isFirstDeliveryDate() ? 'hidden' : 'visible' }" class="deadline d-flex flex-column py-1">
+        Realizando tu pedido antes de las {{ ParserUtils.parseDateToHHMM(cart.invoiceDeadline) }} hs.
+        <span *ngIf="!isDeadlineToday()">del día {{ cart.invoiceDeadline | kaDate: 'day mm/dd' }}</span>
+      </li>
+    </ng-container>
+  </ul>
+
+  <div *ngIf="!isMobile" class="w-100 pl-4">
+    <button (click)="signOut()" class="call-to-action" id="sign-out-desktop">
+      <svg>
+        <use xlink:href="./assets/icons/tabler-sprite.svg#tabler-logout" />
+      </svg>
+      {{ 'HOME.SIGN_OUT' | translate }}
+    </button>
+  </div>
+</div>

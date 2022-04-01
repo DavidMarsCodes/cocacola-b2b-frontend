@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h3 class="modal-title mt-4" id="modal-basic-title">{{ ROOT_LANG + 'TITLE' | translate }}</h3>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <iframe
+    title="Terminos y condiciones"
+    id="tyc-frame"
+    *ngIf="iframeSource && showIframe"
+    class="w-100 h-100"
+    [src]="iframeSource"
+    (load)="iframeLoad()"
+  ></iframe>
+</div>
+
+<div class="modal-footer row d-none d-md-flex pb-4 px-5">
+  <div class="col-4"></div>
+  <div class="col-3 text-right">
+    <button id="tyc-refuse-modal" type="button" class="btn-square border-0 w-auto mx-auto" (click)="reject()">{{ ROOT_LANG + 'REFUSE' | translate }}</button>
+  </div>
+  <div class="col-4">
+    <button id="tyc-confirm-modal" class="btn-square-black w-100" (click)="confirm()">{{ ROOT_LANG + 'CONFIRM' | translate }}</button>
+  </div>
+</div>
+<div class="modal-footer row d-md-none pb-4 px-5">
+  <div class="col-12 mb-3">
+    <button id="tyc-confirm-modal" class="btn-square-black w-100" (click)="confirm()">{{ ROOT_LANG + 'CONFIRM' | translate }}</button>
+  </div>
+  <div class="col-12 text-center">
+    <button id="tyc-refuse-modal" type="button" class="btn-square border-0 w-auto mx-auto" (click)="reject()">{{ ROOT_LANG + 'REFUSE' | translate }}</button>
+  </div>
+</div>

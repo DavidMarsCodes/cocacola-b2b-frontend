@@ -1,0 +1,303 @@
+<div class="row m-0">
+  <div class="col-12 nav">
+    <app-ka-navbar class="w-100"></app-ka-navbar>
+  </div>
+  <div class="home col-12 scroll-grey">
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="profile d-flex align-items-center">
+          <img src="../../../assets/media/comercio.png" alt="Imagen de comercio" />
+          <p class="name">{{ user.firstName }} {{ user.lastName }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-white d-flex flex-row align-items-center justify-content-between p-5 mb-5">
+      <p class="title mb-0">{{ LANG_ROOT + 'CHANGE_PWD.TITLE' | translate }}</p>
+      <p class="link" [routerLink]="'password/editar'" id="profile-edit-pass">
+        <span class="d-inline d-lg-none">
+          <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-edit'" /></svg>
+        </span>
+        <span class="d-none d-lg-inline"> {{ LANG_ROOT + 'CHANGE_PWD.BUTTON' | translate }} </span>
+      </p>
+    </div>
+
+    <div class="card bg-white d-flex justify-content-between p-5 mb-5">
+      <p class="title">{{ 'MY_PROFILE.HOME.CONTACT_DATA.TITLE' | translate }}</p>
+      <table aria-describedby="Datos personales">
+        <tbody>
+          <tr>
+            <td>
+              <span class="d-inline d-lg-none">
+                <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-phone'" /></svg>
+              </span>
+              <span class="d-none d-lg-inline"> {{ LANG_ROOT + 'CONTACT_DATA.PHONE_NUMBER' | translate }} </span>
+            </td>
+            <td class="strong">{{ user.cellphone }}</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="d-inline d-lg-none">
+                <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-mail'" /></svg>
+              </span>
+              <span class="d-none d-lg-inline"> {{ LANG_ROOT + 'CONTACT_DATA.EMAIL' | translate }} </span>
+            </td>
+            <td class="strong">{{ user.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!--
+    <div class="card bg-white d-flex justify-content-between p-5 mb-5">
+      <p class="title">Mis roles</p>
+      <table class="d-none d-lg-table">
+        <thead>
+          <tr>
+            <th>N° de cliente</th>
+            <th>Dirección</th>
+            <th>Rol</th>
+            <th>RUT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>0500265487</td>
+            <td>Ossa Cerda 274-B</td>
+            <td>Administrador</td>
+            <td>09408582-9</td>
+          </tr>
+          <tr>
+            <td>0500265487</td>
+            <td>Ossa Cerda 274-B</td>
+            <td>Administrador</td>
+            <td>09408582-9</td>
+          </tr>
+          <tr>
+            <td>0500265487</td>
+            <td>Ossa Cerda 274-B</td>
+            <td>Administrador</td>
+            <td>09408582-9</td>
+          </tr>
+          <tr>
+            <td>0500265487</td>
+            <td>Ossa Cerda 274-B</td>
+            <td>Administrador</td>
+            <td>09408582-9</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-block d-lg-none">
+        <div class="item">
+          <div>
+            <p><span class="strong">Administrador</span> | Ossa Cerda 274-B</p>
+            <p>N° Cliente 0500265487</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card bg-white d-flex flex-row align-items-center justify-content-between p-5 mb-5">
+      <p class="title mb-0">Agregar un usuario</p>
+      <p class="d-none d-lg-block link" [routerLink]="'usuarios/agregar'" id="profile-add-user">Agregar</p>
+      <button class="d-block d-lg-none link bg-transparent border-0" (click)="open(content)">
+        <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-plus'" /></svg>
+      </button>
+    </div>
+
+    <div class="card bg-white d-flex justify-content-between p-5 mb-5">
+      <p class="title">Gestión de usuarios</p>
+      <table class="d-none d-lg-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Rol</th>
+            <th>Dirección</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Juan Perez</td>
+            <td>
+              <select>
+                <option>Administrador</option>
+                <option selected>Vendedor</option>
+                <option>Repositor</option>
+              </select>
+            </td>
+            <td>
+              <select>
+                <option>Ossa Cerda 274-A</option>
+                <option selected>Ossa Cerda 274-B</option>
+                <option>Ossa Cerda 274-C</option>
+              </select>
+            </td>
+            <td>
+              <select>
+                <option>Activo</option>
+                <option>Bloqueado</option>
+              </select>
+            </td>
+            <td class="text-center">
+              <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-trash'" /></svg>
+            </td>
+          </tr>
+          <tr>
+            <td>Leopoldo Gonzalez</td>
+            <td>
+              <select>
+                <option>Administrador</option>
+                <option selected>Vendedor</option>
+                <option>Repositor</option>
+              </select>
+            </td>
+            <td>
+              <select>
+                <option>Ossa Cerda 274-A</option>
+                <option selected>Ossa Cerda 274-B</option>
+                <option>Ossa Cerda 274-C</option>
+              </select>
+            </td>
+            <td>
+              <select>
+                <option>Activo</option>
+                <option>Bloqueado</option>
+              </select>
+            </td>
+            <td class="text-center">
+              <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-trash'" /></svg>
+            </td>
+          </tr>
+          <tr>
+            <td>Junior Garcia</td>
+            <td>
+              <select>
+                <option>Administrador</option>
+                <option selected>Vendedor</option>
+                <option>Repositor</option>
+              </select>
+            </td>
+            <td>
+              <select>
+                <option>Ossa Cerda 274-A</option>
+                <option selected>Ossa Cerda 274-B</option>
+                <option>Ossa Cerda 274-C</option>
+              </select>
+            </td>
+            <td>
+              <select>
+                <option>Activo</option>
+                <option>Bloqueado</option>
+              </select>
+            </td>
+            <td class="text-center">
+              <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-trash'" /></svg>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-block d-lg-none">
+        <div class="item d-flex flex-row align-items-center justify-space-between">
+          <div>
+            <p><span class="strong">Administrador</span> | Ossa Cerda 274-B</p>
+            <p>N° Cliente 0500265487</p>
+          </div>
+          <div class="more-actions">
+            <div ngbDropdown class="d-inline-block" placement="top-right">
+              <button class="bg-transparent border-0" id="dropdownUserOptions" ngbDropdownToggle>
+                <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-dots-vertical'" /></svg>
+              </button>
+              <div ngbDropdownMenu aria-labelledby="dropdownUserOptions" class="dropdown-menu">
+                <button class="text-center" ngbDropdownItem (click)="open(editUser)">Editar usuario</button>
+                <button class="text-center" ngbDropdownItem (click)="open(blockUser)">Bloquear momentaneamente usuario</button>
+                <button class="text-center" ngbDropdownItem (click)="open(deleteUser)">Eliminar usuario</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-x'" /></svg>
+    </button>
+  </div>
+  <div class="modal-body d-flex flex-column">
+    <p class="title strong">Agregar un usuario</p>
+    <input type="text" name="" id="" value="Nombre" />
+    <select>
+      <option selected disabled>Rol</option>
+    </select>
+    <select>
+      <option selected disabled>Dirección</option>
+    </select>
+    <button class="btn-black align-self-center">Agregar</button>
+  </div>
+</ng-template>
+
+<ng-template #editUser let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-x'" /></svg>
+    </button>
+  </div>
+  <div class="modal-body d-flex flex-column">
+    <p class="title strong">Editar usuario</p>
+    <input type="text" name="" id="" value="Nombre" />
+    <select>
+      <option selected disabled>Rol</option>
+    </select>
+    <select>
+      <option selected disabled>Dirección</option>
+    </select>
+    <button class="btn-black align-self-center">Editar</button>
+  </div>
+</ng-template>
+
+<ng-template #blockUser let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-x'" /></svg>
+    </button>
+  </div>
+  <div class="modal-body d-flex flex-column">
+    <p class="title strong">Bloquear usuario</p>
+    <div class="item d-flex flex-row align-items-center justify-content-between">
+      <p>Una semana</p>
+      <ui-switch defaultBoColor="#1a1a1a" color="#de0b1c" switchColor="#1a1a1a" size="small"></ui-switch>
+    </div>
+    <div class="item d-flex flex-row align-items-center justify-content-between">
+      <p>Una año</p>
+      <ui-switch defaultBoColor="#1a1a1a" color="#de0b1c" switchColor="#1a1a1a" size="small"></ui-switch>
+    </div>
+    <div class="item d-flex flex-row align-items-center justify-content-between">
+      <p>Tiempo indefinido</p>
+      <ui-switch defaultBoColor="#1a1a1a" color="#de0b1c" switchColor="#1a1a1a" size="small"></ui-switch>
+    </div>
+    <div class="actions">
+      <p class="link">Cancelar</p>
+      <button class="btn-black align-self-center">Bloquear</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #deleteUser let-modal>
+  <div class="modal-header">
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <svg><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-x'" /></svg>
+    </button>
+  </div>
+  <div class="modal-body d-flex flex-column">
+    <p class="title strong text-center px-5 pt-5">¿Estás seguro de borrar este usuario?</p>
+    <div class="actions">
+      <p class="link">No, cancelar</p>
+      <button class="btn-black align-self-center">Si, borrar</button>
+    </div>
+  </div>
+</ng-template>
+-->
+  </div>
+</div>

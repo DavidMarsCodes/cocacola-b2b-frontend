@@ -1,0 +1,8 @@
+<div class="order-footer d-flex flex-row justify-content-between align-items-center">
+  <span *ngIf="step == 3">Total $0</span>
+  <span *ngIf="step != 4 && step != 3">Total $120.000</span>
+  <button *ngIf="step != 4">Ver mi pedido</button>
+
+  <span *ngIf="step == 4">Seguir comprando</span>
+  <button *ngIf="step == 4">Finalizar y enviar pedid00000o</button>
+</div>

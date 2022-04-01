@@ -1,0 +1,39 @@
+<div class="available-credits">
+  <ngb-accordion #acc="ngbAccordion" disabled>
+    <ngb-panel id="config-panel-one">
+      <ng-template ngbPanelTitle>
+        <div class="item">
+          <div class="image">
+            <img src=".././assets/icons/available-credits.svg" alt="Creditos disponibles" srcset="" />
+          </div>
+          <div class="content">
+            <div class="text">
+              <span>Créditos disponibles</span>
+              <img src="../../../../../../assets/icons/arrow-down.png" alt="Flecha abajo" />
+            </div>
+            <!--<p class="my-2"><ngb-progressbar type="dark" [value]="60"></ngb-progressbar></p>-->
+          </div>
+        </div>
+      </ng-template>
+      <ng-template ngbPanelContent>
+        <div *ngIf="cart.orderId">
+          <div *ngFor="let segment of cartCredits; last as isLast">
+            <div *ngIf="!isLast" class="list-item" [ngClass]="{ danger: segment.status !== 'OK' }">
+              <span>{{ segment.segmentName }}</span>
+              <strong>{{ segment.newAvailable | kaCredits }}</strong>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!cart.orderId || cartCredits.length < 2">
+          <div *ngFor="let segment of credits; last as isLast">
+            <div class="list-item" [ngClass]="{ danger: segment.available < 0 }">
+              <span>{{ segment.Segment.name }}</span>
+              <strong>{{ segment.available | kaCredits }}</strong>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>

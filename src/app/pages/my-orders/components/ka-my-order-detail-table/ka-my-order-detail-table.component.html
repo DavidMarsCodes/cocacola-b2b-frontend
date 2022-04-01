@@ -1,0 +1,40 @@
+<div class="order-detail">
+  <h3 class="title-h3 mb-3">{{ ROOT + 'TITLE' | translate }}</h3>
+  <div class="body scroll-grey">
+    <div class="product-group" *ngFor="let group of groupProducts | keyvalue">
+      <h4 class="category-name">{{ group.key != 'undefined' ? group.key : 'Sin especificar' }}</h4>
+      <table aria-describedby="Tabla de detalle de orden" class="mb-5">
+        <thead>
+          <tr>
+            <th scope="col" class="text-center">{{ ROOT + 'TABLE.QUANTITY_ORDER' | translate }}</th>
+            <!-- <th class="text-center">Cant. <span class="d-none d-lg-inline">confirmada</span></th> -->
+            <th scope="col" class="text-center">{{ ROOT + 'TABLE.COD_PRODUCT' | translate }}</th>
+            <th scope="col">{{ ROOT + 'TABLE.DESCRIPTION' | translate }}</th>
+            <th scope="col" class="d-none d-lg-table-cell text-center">{{ ROOT + 'TABLE.UNIT_PRICE' | translate }}</th>
+            <th scope="col" class="text-center">{{ ROOT + 'TABLE.SUBTOTAL' | translate }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of group.value">
+            <td class="text-center">
+              {{ product.quantity }}
+            </td>
+            <!-- <td class="text-center">
+              {{ product.quantityConfirmed }}
+            </td> -->
+            <td class="text-center">
+              {{ parseInt(product.erpProductId) }}
+            </td>
+            <td class="product-name">
+              {{ product.productName }}
+            </td>
+            <td class="d-none d-lg-table-cell price text-center">
+              {{ product.price.finalPrice | kaCurrency }}
+            </td>
+            <td class="price text-center">{{ product.totals.finalPrice | kaCurrency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

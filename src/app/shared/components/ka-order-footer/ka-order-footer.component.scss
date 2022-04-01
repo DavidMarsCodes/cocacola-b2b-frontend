@@ -1,0 +1,25 @@
+@import 'variables';
+
+.order-footer {
+  width: 100%;
+  padding: 10px;
+  background-color: #fafafa;
+  position: fixed;
+  bottom: 55px;
+  span {
+    font-size: 14px;
+    line-height: 17px;
+    @media (max-width: $lg) {
+      font-size: 14px;
+      line-height: 16px;
+    }
+  }
+  button {
+    max-width: 50%;
+    @media (max-width: $lg) {
+      font-size: 14px;
+      line-height: 16px;
+      padding: 10px;
+    }
+  }
+}

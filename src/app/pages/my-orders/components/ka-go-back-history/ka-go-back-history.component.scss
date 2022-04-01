@@ -1,0 +1,16 @@
+.back {
+  outline: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 5px;
+  margin-left: 10px;
+  span {
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+  }
+  svg {
+    width: 2rem;
+  }
+}

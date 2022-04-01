@@ -1,0 +1,55 @@
+<div class="row nav m-0">
+  <div class="col-12">
+    <app-ka-navbar class="w-100"></app-ka-navbar>
+  </div>
+</div>
+<div class="row m-0">
+  <div class="home col-12 scroll-grey">
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="profile d-flex align-items-center">
+          <img src="../../../assets/media/comercio.png" alt="Imagen de comercio" />
+          <p class="name">{{ user.firstName }} {{ user.lastName }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card bg-white d-flex justify-content-between p-5 mb-5">
+      <p class="title">Agregar un usuario</p>
+      <p class="subtitle">Si un usuario esta en más de un comercio, agregarlo según la cantidad de comercios que se encuentra</p>
+      <table aria-describedby="Agregar un usuario">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Rol</th>
+            <th scope="col">Dirección de comercio</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="text" name="" id="" /></td>
+            <td>
+              <select name="selectRol" id="selectRol">
+                <option selected disabled>Seleccionar rol</option>
+                <option>Administrador</option>
+                <option>Vendedor</option>
+                <option>Repositor</option>
+              </select>
+            </td>
+            <td>
+              <select name="selectAddress" id="selectAddress">
+                <option selected disabled>Seleccionar comercio</option>
+                <option>Ossa Cerda 274-A</option>
+                <option>Ossa Cerda 274-B</option>
+                <option>Ossa Cerda 274-C</option>
+              </select>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="actions justify-content-end">
+        <p class="link text-dark strong mr-5" [routerLink]="'/main/mi-perfil'" id="profile-return-user">Cancelar y volver a mi perfil</p>
+        <button class="btn-black w-25" id="profile-add-user-confirm">Agregar usuario</button>
+      </div>
+    </div>
+  </div>
+</div>

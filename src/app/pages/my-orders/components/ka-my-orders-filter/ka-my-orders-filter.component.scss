@@ -1,0 +1,102 @@
+@import 'variables';
+
+.order-data {
+  border-radius: 10px;
+  background-color: $dark;
+  padding: 2rem;
+  color: $white;
+  border-left: 1.5rem solid $red;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @media (max-width: $lg) {
+    flex-direction: column;
+    padding: 0;
+    padding-top: 2rem;
+  }
+  p {
+    font-family: $font-bold;
+    font-size: 2rem;
+    line-height: 2.2rem;
+    margin-bottom: 0;
+  }
+  .main-title {
+    margin-bottom: 0;
+    width: 25%;
+    text-align: center;
+    @media (max-width: $lg) {
+      width: 100%;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+  }
+  .data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+    @media (max-width: $lg) {
+      width: 100%;
+    }
+    .col-6 {
+      @media (max-width: $lg) {
+        padding: 0;
+        &:not(.odd) {
+          padding-right: 15px;
+        }
+      }
+    }
+    .title {
+      font-size: 1.4rem;
+      line-height: 1.7rem;
+      font-family: $font-regular;
+      margin-bottom: 3px;
+      @media (max-width: $lg) {
+        font-size: 11px;
+        line-height: 13px;
+      }
+    }
+    .order-status {
+      &.CREATED,
+      &.DELIVERED,
+      &.FAILED,
+      &.REGISTERED,
+      &.PREPARING,
+      &.TRANSIT {
+        background-color: $yellow;
+      }
+      &.DELIVERED_CLT {
+        background-color: $green;
+      }
+      &.RETURNED,
+      &.BLOCKED {
+        background-color: $red;
+        color: $white;
+      }
+      &.CANCELLED {
+        background-color: $dark;
+        color: $white;
+      }
+      &:not(:last-child) {
+        color: $dark;
+      }
+    }
+    .value {
+      background-color: $light-grey;
+      font-family: $font-regular;
+      border-radius: 3px;
+      padding: 1rem;
+      color: $dark;
+      font-size: 1.2rem;
+      line-height: 1.4rem;
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      @media (max-width: $lg) {
+        font-size: 10px;
+        line-height: 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,24 @@
+<div class="d-none d-lg-flex ka-grey-card">
+  <div class="item">
+    <div class="image red-circle">
+      <svg class="mx-auto tabler-bucket"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-bucket" /></svg>
+    </div>
+    <div class="content">
+      <div class="text">
+        <span>{{ ROOT + 'MINIMUM_PURCHASE' | translate }} </span><span>{{ cart.minPurchase | kaCurrency }}</span>
+      </div>
+      <p class="my-2"><ngb-progressbar type="success" [value]="percentAmount"></ngb-progressbar></p>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex d-lg-none mobile">
+  <div class="item">
+    <div class="content">
+      <div class="text">
+        <span>{{ ROOT + 'MINIMUM_PURCHASE' | translate }} </span><span>{{ cart.minPurchase | kaCurrency }}</span>
+      </div>
+      <p class="my-2"><ngb-progressbar type="success" [value]="percentAmount"></ngb-progressbar></p>
+    </div>
+  </div>
+</div>

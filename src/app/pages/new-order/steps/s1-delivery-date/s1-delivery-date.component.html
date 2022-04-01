@@ -1,0 +1,34 @@
+<div class="delivery">
+  <svg class="mx-auto tabler-truck"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-truck" /></svg>
+
+  <p class="title-main mb-5">{{ 'NEW_ORDER.DELIVERY_PLAN.LABEL' | translate: { date: visitDate | kaDate } }}</p>
+  <mat-form-field appearance="fill">
+    <input
+      [(ngModel)]="visitDate"
+      matInput
+      readonly
+      #input="ngModel"
+      [matDatepicker]="picker"
+      [matDatepickerFilter]="dateFilter"
+      placeholder="DD/MM/AAAA"
+      (dateChange)="updateVisitDate('change', $event)"
+    />
+    <mat-datepicker-toggle matSuffix [for]="picker">
+      <svg matDatepickerToggleIcon><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-chevron-down'" /></svg>
+    </mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="input.hasError('matDatepickerParse')" class="h5">La fecha debe tener el formato DD/MM/AAAA</mat-error>
+    <mat-error *ngIf="input.hasError('matDatepickerMin')" class="h5">La fecha debe ser superior al día de hoy</mat-error>
+  </mat-form-field>
+</div>
+<div *ngIf="deadline && isFirstDeliveryDateProp" class="delivery-message text-center">
+  <svg class="mb-3"><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-clock" /></svg><br />
+  {{ 'NEW_ORDER.DELIVERY_PLAN.ADVICE' | translate: { deadline: deadline } }}
+</div>
+<div></div>
+<div></div>
+<div class="action-main">
+  <button [disabled]="!visitDate || !this.isValidDate" class="btn-square-black" (click)="changeStep()" id="iniciar-mi-pedido-fecha">
+    {{ 'NEW_ORDER.DELIVERY_PLAN.BUTTON' | translate }}
+  </button>
+</div>

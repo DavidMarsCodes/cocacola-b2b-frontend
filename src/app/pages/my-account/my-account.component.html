@@ -1,0 +1,19 @@
+<div class="row nav m-0">
+  <div class="col-12">
+    <app-ka-navbar class="w-100" *ngIf="!user.uuid"></app-ka-navbar>
+  </div>
+</div>
+<div class="row m-0">
+  <div class="home col-12 scroll-grey">
+    <div class="row mb-5">
+      <div class="col-12">
+        <app-ka-available-category-credits [credits]="myCreditDetail"></app-ka-available-category-credits>
+      </div>
+    </div>
+    <div class="row">
+      <div class="account-status">
+        <app-ka-account-status></app-ka-account-status>
+      </div>
+    </div>
+  </div>
+</div>

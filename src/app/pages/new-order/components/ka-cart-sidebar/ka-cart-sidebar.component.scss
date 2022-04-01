@@ -1,0 +1,16 @@
+@import 'variables';
+
+.title {
+  font-family: $font-bold;
+  font-size: 14px;
+  line-height: 15px;
+  color: $dark;
+  align-self: flex-start;
+}
+
+.empty-cart-advice {
+  font-size: 1.3rem;
+  text-align: center;
+  margin-top: 13px;
+  color: $red;
+}

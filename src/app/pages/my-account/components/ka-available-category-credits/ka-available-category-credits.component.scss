@@ -1,0 +1,100 @@
+@import 'variables';
+.card {
+  background: $white;
+  border-radius: 7px;
+  padding: 2rem 3rem;
+  @media (max-width: $lg) {
+    padding: 2rem 0rem;
+  }
+  .title {
+    font-size: 2rem;
+    line-height: 2.2rem;
+    margin-bottom: 1.5rem;
+    font-family: $font-bold;
+  }
+  .credit-container {
+    flex-direction: row;
+    @media (max-width: $lg) {
+      flex-direction: column;
+    }
+    .available-credit {
+      background-color: $light-grey;
+      padding: 1.5rem;
+      margin: 5px;
+      border-radius: 7px;
+      width: 30%;
+      @media (max-width: $lg) {
+        width: 100%;
+        &:not(:last-child) {
+          margin-bottom: 2rem;
+        }
+      }
+      .payment-method {
+        padding: 1.5rem;
+        padding-bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        svg {
+          color: $red;
+          width: 20px;
+        }
+        p {
+          font-size: 1.2rem;
+          line-height: 1.4rem;
+          margin-bottom: 0;
+          strong {
+            font-family: $font-bold;
+          }
+        }
+      }
+      .item {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        border-bottom: 1px solid $dark-grey;
+        padding-bottom: 1.5rem;
+        p {
+          margin-bottom: 0;
+        }
+        .image {
+          width: 34px;
+          height: 34px;
+          padding: 5px;
+          border-radius: 100%;
+          background-color: $red;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-right: 10px;
+          img {
+            max-width: 100%;
+            padding: 3px;
+          }
+          svg {
+            color: $white;
+          }
+        }
+        .content {
+          width: 85%;
+        }
+        .text {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: space-between;
+          line-height: 13px;
+          span {
+            font-size: 1.4rem;
+            font-weight: bold;
+          }
+        }
+        .warning {
+          font-size: 1rem;
+          line-height: 10px;
+        }
+      }
+    }
+  }
+}

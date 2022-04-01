@@ -1,0 +1,14 @@
+<div
+  [routerLink]="client.hasLockOrder ? '' : '/main/nuevo-pedido/2'"
+  [queryParams]="{ grupo: ProductTypes.PACK }"
+  class="card d-flex flex-row align-items-center justify-content-between"
+  [ngClass]="{ disabled: client.hasLockOrder }"
+>
+  <div>
+    <p class="title">Combos y descuentos</p>
+    <p class="subtitle">Comprá y ahorrá más</p>
+  </div>
+  <div class="d-none d-lg-flex w-25 flex-row align-items-center justify-content-center">
+    <button [disabled]="client.hasLockOrder" class="w-75 btn-square-red">Ver combos</button>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="navbar-container">
+  <div class="d-flex flex-row align-items-center justify-content-start">
+    <div class="image w-25">
+      <img class="rounded-circle img-fluid w-100 p-3" src="./assets/media/comercio.png" alt="" />
+    </div>
+    <div class="user-info ps-5">
+      <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+      <a routerLink="/main/mi-perfil">Ver mi perfil</a>
+    </div>
+  </div>
+  <ul class="options">
+    <app-ka-menu-items></app-ka-menu-items>
+  </ul>
+  <ul class="">
+    <li *ngIf="!isNewOrder">
+      <div class="select-commerce">
+        <app-ka-select-commerce></app-ka-select-commerce>
+      </div>
+    </li>
+    <li class="privacy-terms">{{ 'LOGIN.HOME.LEGALS' | translate }}</li>
+    <li (click)="signOut()" id="sign-out-mobile">
+      <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-logout" /></svg>
+      {{ 'HOME.SIGN_OUT' | translate }}
+    </li>
+  </ul>
+</div>

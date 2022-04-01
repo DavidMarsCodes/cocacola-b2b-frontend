@@ -1,0 +1,47 @@
+<div class="order-data">
+  <p class="main-title px-4">{{ ROOT + 'TITLE' | translate }} {{ orderDetail.orderId }}</p>
+
+  <div class="data">
+    <div class="row justify-content-between w-100">
+      <div class="item col-12 col-sm-6 col-lg-3 mb-4">
+        <p class="title">{{ ROOT + 'DATA.TITLE_INTERNAL' | translate }}</p>
+        <p class="value">
+          <span *ngFor="let sap of parentOrder?.sapOrders; let isLast = last">{{ sap.erpOrderId }}{{ isLast ? '' : ' / ' }}</span>
+        </p>
+      </div>
+      <div class="item col-12 col-sm-6 col-lg-3 mb-4 odd">
+        <p class="title">{{ ROOT + 'DATA.TITLE_SALE' | translate }}</p>
+        <p class="value">{{ orderDetail.sourceChannel }}</p>
+      </div>
+      <div class="item col-12 col-sm-6 col-lg-3 mb-4">
+        <p class="title">{{ ROOT + 'DATA.DATE_ORDER' | translate }}</p>
+        <p class="value">{{ orderDetail.createdTime | kaDate }}</p>
+      </div>
+      <div class="item col-12 col-sm-6 col-lg-3 mb-4 odd">
+        <p class="title">{{ ROOT + 'DATA.DATE_DELIVERY' | translate }}</p>
+        <p class="value">{{ orderDetail.orderDeliveryDate | kaDate }}</p>
+      </div>
+      <div class="item col-12 col-sm-6 col-lg-3 mb-4">
+        <p class="title">{{ ROOT + 'DATA.ADRESS_ORDER' | translate }}</p>
+        <p class="value">{{ orderDetail.address?.street }} {{ orderDetail.address?.doorNumber }}</p>
+      </div>
+      <div class="item col-12 col-sm-6 col-lg-3 mb-4 odd">
+        <p class="title">{{ ROOT + 'DATA.PAY_OPTION' | translate }}</p>
+        <p class="value">{{ orderDetail.paymentMethod | kaPaymentMethod }}</p>
+      </div>
+      <div class="item col-12 col-sm-6 col-lg-3 mb-4">
+        <p class="title">{{ ROOT + 'DATA.SHIPPING_ADRESS' | translate }}</p>
+        <p class="value">{{ orderDetail.address?.street }} {{ orderDetail.address?.doorNumber }}</p>
+      </div>
+      <div class="item col-12 col-sm-6 col-lg-3 mb-4 odd d-none d-lg-block">
+        <p class="title">{{ ROOT + 'DATA.TITLE_STATUS' | translate }}</p>
+        <p class="value order-status {{ orderDetail.status }}">{{ 'ORDER_STATUS.' + orderDetail.status | translate: { Default: orderDetail.status } }}</p>
+      </div>
+
+      <div class="d-block d-lg-none item col-12 col-sm-6 col-lg-3 mb-4">
+        <p class="title">{{ ROOT + 'DATA.TITLE_STATUS' | translate }}</p>
+        <p class="value order-status {{ orderDetail.status }}">{{ 'ORDER_STATUS.' + orderDetail.status | translate: { Default: orderDetail.status } }}</p>
+      </div>
+    </div>
+  </div>
+</div>

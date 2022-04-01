@@ -1,0 +1,93 @@
+<!-- DESKTOP -->
+<div class="d-none d-sm-block card container bg-white p-3" [ngClass]="{ unavailable: unavailable }">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-2">
+      <div class="row image w-100 m-0">
+        <img class="img-fluid mw-100" [src]="product.image" alt="" (error)="onImgError()" />
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="row product-data bg-white">
+        <span class="product-name">{{ product.name }} </span>
+      </div>
+    </div>
+    <div class="col-2">
+      <div class="row product-data bg-white">
+        <div class="product-price p-0 pl-2 text-center">
+          <small *ngIf="product.price.listPrice !== product.price.finalPrice">{{ product.price.listPrice | kaCurrency }}</small>
+          <span>{{ product.price.finalPrice | kaCurrency }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-4" *ngIf="page != 'home'">
+      <div class="row product-quantity d-flex align-items-center justify-content-center">
+        <ng-container *ngIf="!unavailable">
+          <div class="btn-pill quantity d-flex mx-2 my-2">
+            <span (click)="removeProduct()" class="button noselect">
+              <fa-icon icon="minus"></fa-icon>
+            </span>
+            <input type="number" [(ngModel)]="product.quantitySelected" (keydown)="validQuantLength($event)" (paste)="onQuantityPaste($event)" />
+            <span (click)="addProduct()" class="button noselect">
+              <fa-icon icon="plus"></fa-icon>
+            </span>
+          </div>
+          <button
+            [disabled]="!product.quantitySelected || product.quantitySelected < 1 || !isInteger(product.quantitySelected)"
+            class="btn-pill-add w-auto mx-2 my-2 noselect"
+            (click)="addProductToCart(product)"
+          >
+            {{ 'NEW_ORDER.ORDER_DETAIL.ADD' | translate }}
+          </button>
+        </ng-container>
+        <ng-container *ngIf="unavailable">
+          <button class="btn-pill-add w-auto" disabled>Sin stock</button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE -->
+<div class="d-sm-none card container bg-white p-2" [ngClass]="{ unavailable: unavailable }">
+  <div class="row justify-content-center align-items-center m-0 p-0">
+    <div class="col-4">
+      <div class="row image">
+        <img class="img-fluid mw-100" [src]="product.image" alt="" (error)="onImgError()" />
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="row product-data bg-white p-2">
+        <span class="product-name">{{ product.name }} </span>
+      </div>
+      <div class="row product-data bg-white p-2">
+        <div class="product-price p-0 pl-2 text-center">
+          <small *ngIf="product.price.listPrice !== product.price.finalPrice">{{ product.price.listPrice | kaCurrency }}</small>
+          <span>{{ product.price.finalPrice | kaCurrency }}</span>
+        </div>
+      </div>
+      <div *ngIf="page != 'home'" class="row product-quantity d-flex align-items-center justify-content-center p-2">
+        <ng-container *ngIf="!unavailable">
+          <div class="btn-pill quantity d-flex mx-2 my-2">
+            <span (click)="removeProduct()" class="button">
+              <fa-icon icon="minus"></fa-icon>
+            </span>
+            <input type="number" [(ngModel)]="product.quantitySelected" (keydown)="validQuantLength($event)" (paste)="onQuantityPaste($event)" />
+            <span (click)="addProduct()" class="button">
+              <fa-icon icon="plus"></fa-icon>
+            </span>
+          </div>
+          <button
+            [disabled]="!product.quantitySelected || product.quantitySelected < 1 || !isInteger(product.quantitySelected)"
+            class="btn-pill-add btn-pill-add-enabled w-auto mx-2 my-2"
+            (click)="addProductToCart(product)"
+          >
+            {{ 'NEW_ORDER.ORDER_DETAIL.ADD' | translate }}
+          </button>
+        </ng-container>
+        <ng-container *ngIf="unavailable">
+          <button class="btn-pill-add w-auto" disabled>Sin stock</button>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

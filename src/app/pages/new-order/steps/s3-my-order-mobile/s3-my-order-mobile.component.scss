@@ -1,0 +1,8 @@
+@import 'variables';
+@media (max-width: $lg) {
+  .title-main {
+    font-weight: bold;
+    font-size: 14px !important;
+    line-height: 16px;
+  }
+}

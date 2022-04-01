@@ -1,0 +1,41 @@
+<app-ka-navbar class="w-100" *ngIf="!user.uuid"></app-ka-navbar>
+
+<div *ngIf="orderDetailReady && orderDetail" class="w-100 order-detail scroll-grey px-3">
+  <div class="w-100" id="detalle-pedido">
+    <div class="d-flex align-items-center justify-content-between">
+      <app-ka-go-back-history></app-ka-go-back-history>
+      <!-- <button class="btn-square border-0 bg-transparent invoice" id="order-detail-invoice-{{ orderDetail.status }}">
+        Descargar factura
+        <svg class="ml-2" style="width: 15px"><use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-file-download'" /></svg>
+      </button> -->
+    </div>
+
+    <app-ka-my-orders-filter [orderDetail]="orderDetail"></app-ka-my-orders-filter>
+
+    <div class="my-4 red-alert">
+      <div>
+        <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-alert-circle" /></svg>
+      </div>
+      <span>{{ 'MY_ORDERS.ORDER_DETAIL.ALERT' | translate }} </span>
+    </div>
+
+    <div class="mb-4">
+      <app-ka-my-order-detail-table [products]="orderDetail?.products"></app-ka-my-order-detail-table>
+    </div>
+
+    <div class="mb-4">
+      <app-ka-my-order-detail-resume [orderDetail]="orderDetail"></app-ka-my-order-detail-resume>
+    </div>
+
+    <!-- <div class="row repeat-order">
+          <div class="col-12 d-flex flex-row">
+            <button class="btn-black w-50 border-0" id="order-detail-repeat-{{ orderDetail.status }}">Repetir pedido</button>
+          </div>
+    </div> -->
+  </div>
+</div>
+
+<div class="card no-order-detail" *ngIf="orderDetailReady && !orderDetail">
+  <app-ka-go-back-history></app-ka-go-back-history>
+  <h2>{{ 'ERRORS.GET_ORDER_DETAIL' | translate }}</h2>
+</div>

@@ -1,0 +1,109 @@
+@import 'variables';
+
+* {
+  font-family: $font-regular;
+}
+
+.modal-content {
+  padding: 0;
+}
+
+.modal-header {
+  padding-top: 2rem;
+  padding-left: 4rem;
+  .row {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  }
+  p {
+    font-size: 1.8rem;
+    font-family: $font-medium !important;
+  }
+}
+
+.modal-body,
+.modal-footer {
+  padding: 2rem 4rem;
+  @media (min-width: $sm) and (max-width: $md) {
+    padding: 2rem;
+  }
+  @media (max-width: $xs) {
+    padding: 1rem;
+  }
+}
+
+.modal-body {
+  max-height: 50vh;
+  overflow-y: scroll;
+
+  .group-name {
+    font-size: 1.5rem;
+    font-family: $font-bold;
+    margin: 1rem 0 0.5rem 0.5rem;
+    text-align: left;
+  }
+
+  .product {
+    div {
+      padding: 0.5rem;
+    }
+    &-name {
+      text-align: left;
+    }
+    &-prices {
+      small {
+        text-decoration: line-through;
+        font-size: 1.4rem;
+        line-height: 1rem;
+        margin-right: 1rem;
+        @media (max-width: $lg) {
+          display: block;
+          font-size: 1.3rem;
+        }
+      }
+      span {
+        font-size: 1.7rem;
+        line-height: 2rem;
+        font-weight: bold;
+        @media (max-width: $lg) {
+          font-size: 1.6rem;
+        }
+      }
+    }
+    &-pill {
+      .button {
+        cursor: pointer;
+      }
+      fa-icon {
+        font-size: 1rem;
+        @media (max-width: $lg) {
+          font-size: 12px;
+        }
+        @media (max-width: $sm) {
+          font-size: 10px;
+        }
+      }
+      span {
+        font-size: 1.2rem;
+        line-height: 1.4rem;
+      }
+    }
+  }
+}
+
+.modal-footer {
+  box-shadow: 0 0 12px -6px;
+
+  .max-repetition {
+    background-color: $light-green;
+    color: $dark-green;
+    font-family: $font-medium;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.4rem;
+    border-radius: 3px;
+    @media (max-width: $lg) {
+      width: 100%;
+    }
+  }
+}

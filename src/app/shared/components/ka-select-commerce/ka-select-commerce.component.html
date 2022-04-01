@@ -1,0 +1,8 @@
+<div [ngClass]="{ minimalist: minimalist }" class="select-commerce d-flex flex-column justify-content-between align-items-start">
+  <div class="select-group">
+    <p *ngIf="!minimalist" class="label font-weight-bold">{{ 'HOME.MY_STORES_SELECT' | translate }}</p>
+    <select class="px-0" *ngIf="selectedClient" [ngModel]="selectedClient.clientId" (ngModelChange)="selectClient($event)">
+      <option *ngFor="let client of clients" [value]="client.clientId">{{ client.street }} {{ client.doorNumber }}</option>
+    </select>
+  </div>
+</div>

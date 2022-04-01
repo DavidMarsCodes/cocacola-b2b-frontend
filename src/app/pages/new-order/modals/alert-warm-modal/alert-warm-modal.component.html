@@ -1,0 +1,17 @@
+<div class="modal-body pt-5 p-3">
+  <div class="d-flex justify-content-center align-items-center">
+    <img class="not-found-img mb-3 w-50 p-4" src="/assets/media/emojis/not-found.png" alt="" />
+  </div>
+  <h2 class="mb-4 title">{{ LANG_ROOT + 'QUESTION_ALERT' | translate }}</h2>
+  <div class="mt-4 warn d-flex align-items-center justify-content-center w-100">
+    <p class="w-75 text-center">{{ LANG_ROOT + 'WARNING_ALERT' | translate }}</p>
+  </div>
+</div>
+<div class="modal-footer d-flex justify-content-center">
+  <div class="col-12 col-lg-6 mb-3">
+    <button id="get_out_modal" class="btn-square-black w-100" (click)="confirm()">{{ LANG_ROOT + 'CONFIRM' | translate }}</button>
+  </div>
+  <div class="col-12 col-lg-6">
+    <button id="not_get_out_modal" type="button" class="btn-square border-0 w-100 mx-auto" (click)="reject()">{{ LANG_ROOT + 'REJECT' | translate }}</button>
+  </div>
+</div>

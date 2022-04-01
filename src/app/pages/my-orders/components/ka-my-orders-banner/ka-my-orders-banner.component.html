@@ -1,0 +1,47 @@
+<div class="{{ pendingOrders.length >= 3 ? 'd-none' : 'd-none d-md-flex justify-content-between' }} ">
+  <div
+    *ngFor="let order of pendingOrders"
+    [routerLink]="'detalles/' + order.orderId"
+    class="banner d-flex align-items-center justify-content-between w-100 mx-1"
+    id="banner-{{ order.status }}"
+  >
+    <div>
+      <p class="title">{{ ROOT + 'TITLE' | translate }}</p>
+      <span class="subtitle">{{ ROOT + 'SUBTITLE' | translate }} {{ order.orderId }}</span
+      ><br />
+      <span *ngIf="order.erpOrderId" class="h3 m-0">{{ ROOT + 'TITLE_INTERNAL' | translate }} {{ order.erpOrderId }}</span>
+    </div>
+    <div class="d-flex flex-column justify-content-center">
+      <p id="preparacion" class="status {{ order.status }}">{{ 'ORDER_STATUS.' + order.status | translate }}</p>
+      <p class="date">
+        {{ ROOT + 'DATE_DELIVERY' | translate }} <strong>{{ order.deliveryDate | kaDate }}</strong>
+      </p>
+      <p class="date">{{ ROOT + 'DATE_ORDER' | translate }} {{ order.orderDate | kaDate }}</p>
+    </div>
+    <div>
+      <p class="details text-center">
+        {{ ROOT + 'DETAIL' | translate }} <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-chevron-right" /></svg>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="{{ pendingOrders.length >= 3 ? 'd-lg-flex justify-content-between' : 'd-md-none' }}">
+  <div *ngFor="let order of pendingOrders" [routerLink]="'detalles/' + order.orderId" class="banner w-100 mx-2 mb-3" id="banner-{{ order.status }}">
+    <div class="d-flex flex-column justify-content-between">
+      <div class="d-flex justify-content-between w-100">
+        <p class="title">{{ ROOT + 'TITLE' | translate }}</p>
+        <p class="details text-center">
+          {{ ROOT + 'DETAIL' | translate }} <svg><use xlink:href="./assets/icons/tabler-sprite.svg#tabler-chevron-right" /></svg>
+        </p>
+      </div>
+      <span class="subtitle">{{ ROOT + 'SUBTITLE' | translate }} {{ order.orderId }}</span>
+      <span *ngIf="order.erpOrderId" class="h3 m-0">{{ ROOT + 'TITLE_INTERNAL' | translate }} {{ order.erpOrderId }}</span>
+      <p id="preparacion" class="status {{ order.status }}">{{ 'ORDER_STATUS.' + order.status | translate }}</p>
+      <p class="date">
+        {{ ROOT + 'DATE_DELIVERY' | translate }} <strong>{{ order.deliveryDate | kaDate }}</strong>
+      </p>
+      <p class="date">{{ ROOT + 'DATE_ORDER' | translate }} {{ order.orderDate | kaDate }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<app-ka-login-navbar (goStepBack)="returnHomeLogin()"></app-ka-login-navbar>
+
+<div class="container d-flex justify-content-center align-items-center flex-wrap">
+  <div class="header w-100 text-center">
+    <h1 class="title-h1 w-100">{{ 'LOGIN.NEW_CLIENT.TITLE' | translate }}</h1>
+  </div>
+
+  <div class="body w-100 text-center">
+    <img alt="Imagen quiero ser cliente" src="assets/media/quier-ser-cliente.png " />
+  </div>
+
+  <div class="body w-100 d-flex justify-content-center">
+    <a class="d-block w-50" href="tel:+5626178819">
+      <button type="button" class="btn button-grey">
+        {{ 'LOGIN.NEW_CLIENT.BUTTON' | translate }}<br />
+        <small>{{ 'LOGIN.NEW_CLIENT.PHONE' | translate }}</small>
+      </button>
+    </a>
+  </div>
+
+  <div class="footer w-100 text-center pb-4">
+    <a class="dark-link" [href]="'LOGIN.NEW_CLIENT.LINK' | translate" target="_blank">{{ 'LOGIN.NEW_CLIENT.LINK' | translate }}</a>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+<app-ka-login-navbar [hasSelectCountry]="true" [hasBackButton]="false"></app-ka-login-navbar>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-5 p-0">
+      <div class="login-image"></div>
+    </div>
+    <div class="col-12 col-lg-7 p-0">
+      <section class="d-flex flex-column justify-content-center align-items-center">
+        <div class="login-options-container">
+          <div *ngFor="let loginOpt of loginOptions" (click)="navigateTo(loginOpt.routerLink)" class="col-12 login-option" [id]="loginOpt.id">
+            <div class="row">
+              <div class="col-2 d-flex flex-row align-items-center justify-content-center">
+                <div class="bg-red-circle">
+                  <img [src]="loginOpt.icon" alt="" />
+                </div>
+              </div>
+              <div class="col-10">
+                <h1 class="subtitle-black">{{ loginOpt.title }}</h1>
+                <p class="p-ingreso">{{ loginOpt.subtitle }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="d-none">
+          <a (click)="navigateTo('privacy-terms')" class="dark-link"> {{ 'LOGIN.HOME.LEGALS' | translate }}</a>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

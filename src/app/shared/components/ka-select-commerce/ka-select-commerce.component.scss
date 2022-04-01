@@ -1,0 +1,56 @@
+@import 'variables';
+
+.select-commerce {
+  .label {
+    font-size: 1.6rem;
+    line-height: 17px;
+    color: $dark;
+    align-self: flex-start;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .select-group {
+    width: 100%;
+  }
+  select {
+    border: none;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-family: $font-regular;
+    margin-left: -2px;
+    background-color: transparent;
+    border-bottom: 1px solid $dark;
+    width: 100%;
+    @media (max-width: $lg) {
+      max-width: 100%;
+      width: 100%;
+      font-size: 16px;
+      color: $dark;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &.minimalist {
+    .select-group {
+      width: 100%;
+    }
+    select {
+      border: none;
+      font-size: 2rem;
+      line-height: 2.2rem;
+      font-family: $font-bold;
+      margin-left: -4px;
+      background-color: transparent;
+      @media (max-width: $lg) {
+        max-width: 100%;
+        width: 100%;
+        color: $dark;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

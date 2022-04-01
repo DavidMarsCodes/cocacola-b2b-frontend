@@ -1,0 +1,45 @@
+<div class="bg-transparent">
+  <div *ngIf="timeRemaining" class="ka-card d-flex align-items-center bg-grey">
+    <div class="image red-circle">
+      <svg>
+        <use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-clock'" />
+      </svg>
+    </div>
+    <div class="text col-11">
+      <strong *ngIf="cart.hasDeliveryFrozenProducts && isChileanUser">{{ ROOT + 'NOT_FROZEN' | translate }}</strong>
+      <strong *ngIf="cart.hasDeliveryFrozenProducts && isChileanUser">{{ ROOT + 'TIME_DELIVERY_FROZEN_LABEL' | translate }}</strong>
+      <strong *ngIf="!cart.hasDeliveryFrozenProducts || !isChileanUser">{{ ROOT + 'TIME_DELIVERY_LABEL' | translate }}</strong>
+      <strong>{{ cart.visitDate | kaDate: 'day mm/dd' }}</strong> {{ ROOT + 'TIME_PURCHASE_ON' | translate }}
+      <strong>{{ timeRemaining.hours }}:{{ timeRemaining.minutes }}:{{ timeRemaining.seconds }} hs</strong>
+    </div>
+  </div>
+  <div *ngIf="!timeRemaining && isChileanUser" class="ka-card d-flex align-items-center bg-grey my-5">
+    <div class="image red-circle">
+      <svg>
+        <use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-clock'" />
+      </svg>
+    </div>
+    <div class="text col-11">
+      <strong *ngIf="cart.hasDeliveryFrozenProducts">{{ ROOT + 'NOT_FROZEN' | translate }}</strong>
+      <strong *ngIf="cart.hasDeliveryFrozenProducts">{{ ROOT + 'TIME_DELIVERY_FROZEN_LABEL' | translate }}</strong>
+      <strong *ngIf="!cart.hasDeliveryFrozenProducts">{{ ROOT + 'TIME_DELIVERY_LABEL' | translate }}</strong>
+      <strong>{{ cart.visitDate | kaDate: 'day mm/dd' }}</strong>
+    </div>
+  </div>
+  <div *ngIf="cart.hasDeliveryFrozenProducts && isChileanUser" class="ka-card d-flex align-items-center bg-grey">
+    <div class="image red-circle">
+      <svg>
+        <use [attr.xlink:href]="'./assets/icons/tabler-sprite.svg#tabler-clock'" />
+      </svg>
+    </div>
+    <div class="text col-11">
+      <strong>{{ ROOT + 'FROZEN' | translate }}</strong> {{ ROOT + 'TIME_DELIVERY_FROZEN_LABEL' | translate }}
+      <strong>{{ cart.frozenVisitDate | kaDate: 'day mm/dd' }}</strong>
+      <div class="edit-label" (click)="editDateModal('deliveryfrozen')">
+        <strong>
+          {{ ROOT + 'EDIT' | translate }}
+        </strong>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+@import 'variables';
+
+.order-result {
+  @supports (-webkit-touch-callout: none) {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    @media only screen and (min-device-width: 420px) and (-webkit-device-pixel-ratio: 3) {
+      padding-top: 0px;
+    }
+  }
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  max-width: 600px;
+  margin: 0 auto;
+  img {
+    width: 27rem;
+    position: relative;
+    top: 10px;
+    @media (max-width: $lg) {
+      width: 20rem;
+    }
+  }
+  .title {
+    text-align: center;
+    font-size: 3.2rem;
+    line-height: 39px;
+    font-family: $font-bold;
+    @media (max-width: $lg) {
+      font-size: 20px;
+      line-height: 22px;
+    }
+  }
+  .legal-warn {
+    font-size: 1.4rem;
+    @media (max-width: $lg) {
+      font-size: 1.2rem;
+    }
+  }
+  button {
+    margin-bottom: 2rem;
+    @media (max-width: $lg) {
+      font-size: 14px;
+      line-height: 16px;
+      padding: 6px;
+    }
+  }
+  a {
+    font-size: 1.5rem;
+    line-height: 2.2rem;
+    text-align: center;
+    color: $blue;
+  }
+}
